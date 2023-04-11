@@ -24,6 +24,43 @@ export class Product extends Entity {
     this.#price = price;
   }
 
+  //*** PUBLIC API ***//
+
+  updateNameAndDescription(name: string, description: string): this {
+    this.#name = name;
+    this.#description = description;
+
+    return this;
+  }
+
+  addCategory(category: Category): this {
+    const existingCategory = this.#categories.find(
+      (_category) => _category.id === category.id,
+    );
+
+    if (existingCategory) {
+      return this;
+    }
+
+    this.#categories.push(category);
+
+    return this;
+  }
+
+  removeCategory(categoryId: string): this {
+    this.#categories = this.#categories.filter(
+      (category) => category.id !== categoryId,
+    );
+
+    return this;
+  }
+
+  updatePrice(price: number): this {
+    this.#price = price;
+
+    return this;
+  }
+
   //*** GETTERS ***//
 
   get name(): string {

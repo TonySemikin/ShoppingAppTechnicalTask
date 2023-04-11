@@ -1,5 +1,6 @@
 export enum OrderStatus {
   CREATED = 'Created',
-  PENDING_PAYMENT = 'PendingPayment',
+  PAYMENT_PENDING = 'PaymentPending',
+  PAYMENT_FAILED = 'PaymentFailed',
   COMPLETE = 'Complete',
 }

@@ -17,6 +17,15 @@ export class Category extends Entity {
     this.#description = description;
   }
 
+  //*** PUBLIC API ***//
+
+  updateNameAndDescription(name: string, description: string): this {
+    this.#name = name;
+    this.#description = description;
+
+    return this;
+  }
+
   //*** GETTERS ***//
 
   get name(): string {
