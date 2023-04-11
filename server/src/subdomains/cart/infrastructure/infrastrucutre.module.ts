@@ -6,6 +6,6 @@ import { CartMongoRepository } from './db/mongo/repositories/cart.mongo.reposito
   imports: [MongoDbModule],
   controllers: [],
   providers: [CartMongoRepository],
-  exports: [CartMongoRepository],
+  exports: [MongoDbModule, CartMongoRepository],
 })
 export class InfrastructureModule {}

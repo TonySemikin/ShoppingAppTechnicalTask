@@ -73,6 +73,16 @@ class Configuration {
   }
 
   /**
+   * GraphQL
+   */
+
+  readonly #GRAPHQL_PLAYGROUND = process.env.GRAPHQL_PLAYGROUND === 'true';
+
+  get GRAPHQL_PLAYGROUND(): boolean {
+    return this.#GRAPHQL_PLAYGROUND;
+  }
+
+  /**
    * Logging
    */
   readonly #LOG_OUTPUT_LEVEL = process.env.LOG_OUTPUT_LEVEL || 'trace';

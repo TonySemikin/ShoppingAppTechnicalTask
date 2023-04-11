@@ -6,7 +6,6 @@ import { ProductRepository } from 'src/subdomains/shopping/application/repositor
 import { Product } from 'src/subdomains/shopping/domain/entities/product';
 import { ProductMongoDocument } from '../documents/product.mongo.document';
 import { ProductMongoDocumentMapper } from '../mappers/product.mongo.mapper';
-import { CategoryMongoRepository } from './category.mongo.repository';
 
 @Injectable()
 export class ProductMongoRepository implements ProductRepository {

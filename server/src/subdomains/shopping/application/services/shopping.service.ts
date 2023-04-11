@@ -23,7 +23,11 @@ export class ShoppingService {
     return await this.categoryRepository.loadAll();
   }
 
-  async getProductsForCategory(
+  async getCategoriesByIds(categoriesIds: string[]): Promise<Category[]> {
+    return await this.categoryRepository.loadByIds(categoriesIds);
+  }
+
+  async getProductsByCategory(
     categoryId: string,
     from: number,
     to: number,
@@ -31,7 +35,7 @@ export class ShoppingService {
     return await this.productRepository.loadForCategory(categoryId, from, to);
   }
 
-  async getProduct(productId: string): Promise<Product> {
+  async getProductById(productId: string): Promise<Product> {
     const product = await this.productRepository.loadById(productId);
     if (!product) throw new NotFoundException('Product not found');
 

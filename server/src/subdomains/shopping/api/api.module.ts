@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ApplicationModule } from '../application/application.module';
+import { GraphQLApiModule } from './graphql/graphql.module';
 
 @Module({
-  imports: [ApplicationModule],
+  imports: [GraphQLApiModule],
   controllers: [],
   providers: [],
 })
