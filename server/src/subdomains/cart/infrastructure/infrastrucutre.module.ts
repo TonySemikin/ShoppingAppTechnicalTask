@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongoDbModule } from 'src/aop/db/mongo/mongo-db.module';
+import { CartMongoRepository } from './db/mongo/repositories/cart.mongo.repository';
 
 @Module({
   imports: [MongoDbModule],
   controllers: [],
-  providers: [],
+  providers: [CartMongoRepository],
+  exports: [CartMongoRepository],
 })
 export class InfrastructureModule {}
