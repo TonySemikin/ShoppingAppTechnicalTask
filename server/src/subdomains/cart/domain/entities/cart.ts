@@ -57,12 +57,12 @@ export class Cart extends Entity {
     return this;
   }
 
-  setItemQuantity(productId: string, quantity: number, product: Product): this {
-    const cartItem = this.#items.find((item) => item.productId === productId);
+  setItemQuantity(product: Product, quantity: number): this {
+    const cartItem = this.#items.find((item) => item.productId === product.id);
 
     if (!cartItem) {
       throw new BadRequestException(
-        `Product with id ${productId} does not exists in the Cart`,
+        `Product with id ${product.id} does not exists in the Cart`,
       );
     }
 

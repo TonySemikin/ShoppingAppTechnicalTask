@@ -17,7 +17,7 @@ export class CartItem {
   //*** PUBLIC API ***//
 
   /**
-   * @param product - accepting most recent Product representation, since the price might have changed
+   * @param product - most recent Product representation, since the price might have changed
    */
   setProductQuantity(quantity: number, product: Product): this {
     this.#quantity = quantity;
