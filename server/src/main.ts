@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
-import { logger } from './config/logger';
-import { configuration } from './config/configuration';
+import { logger } from './aop/logger/logger';
+import { configuration } from './aop/config/configuration';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { INestApplication } from '@nestjs/common';
