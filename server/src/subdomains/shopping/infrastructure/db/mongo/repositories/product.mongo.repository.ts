@@ -43,4 +43,12 @@ export class ProductMongoRepository implements ProductRepository {
 
     return ProductMongoDocumentMapper.documentToEntity(document, categories);
   }
+
+  async loadForCategory(
+    categoryId: string,
+    from: number,
+    to: number,
+  ): Promise<Product[]> {
+    throw new Error('Method not implemented.');
+  }
 }

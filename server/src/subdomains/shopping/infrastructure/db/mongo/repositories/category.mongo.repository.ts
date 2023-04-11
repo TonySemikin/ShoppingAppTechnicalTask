@@ -37,6 +37,14 @@ export class CategoryMongoRepository implements CategoryRepository {
     return CategoryMongoDocumentMapper.documentToEntity(document);
   }
 
+  async loadByIds(ids: string[]): Promise<Category[]> {
+    throw new Error('Method not implemented.');
+  }
+
+  async loadAll(): Promise<Category[]> {
+    throw new Error('Method not implemented.');
+  }
+
   //*** GETTERS ***//
 
   get _collection(): Collection<CategoryMongoDocument> {

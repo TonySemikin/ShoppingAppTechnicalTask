@@ -3,4 +3,10 @@ import { Product } from '../../domain/entities/product';
 
 export const PRODUCT_REPOSITORY = 'PRODUCT_REPOSITORY';
 
-export interface ProductRepository extends Repository<Product> {}
+export interface ProductRepository extends Repository<Product> {
+  loadForCategory(
+    categoryId: string,
+    from: number,
+    to: number,
+  ): Promise<Product[]>;
+}
