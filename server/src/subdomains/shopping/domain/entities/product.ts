@@ -4,7 +4,7 @@ import { Category } from './category';
 export class Product extends Entity {
   #name: string;
   #description: string;
-  #categories: Category[];
+  #categoriesIds: string[];
   #price: number;
 
   constructor(
@@ -13,14 +13,14 @@ export class Product extends Entity {
     updated: Date,
     name: string,
     description: string,
-    categories: Category[],
+    categoriesIds: string[],
     price: number,
   ) {
     super(id, created, updated);
 
     this.#name = name;
     this.#description = description;
-    this.#categories = categories;
+    this.#categoriesIds = categoriesIds;
     this.#price = price;
   }
 
@@ -34,22 +34,22 @@ export class Product extends Entity {
   }
 
   addCategory(category: Category): this {
-    const existingCategory = this.#categories.find(
-      (_category) => _category.id === category.id,
+    const existingCategory = this.#categoriesIds.find(
+      (categoryId) => categoryId === category.id,
     );
 
     if (existingCategory) {
       return this;
     }
 
-    this.#categories.push(category);
+    this.#categoriesIds.push(category.id);
 
     return this;
   }
 
   removeCategory(categoryId: string): this {
-    this.#categories = this.#categories.filter(
-      (category) => category.id !== categoryId,
+    this.#categoriesIds = this.#categoriesIds.filter(
+      (_categoryId) => _categoryId !== categoryId,
     );
 
     return this;
@@ -71,8 +71,8 @@ export class Product extends Entity {
     return this.#description;
   }
 
-  get categories(): Category[] {
-    return this.#categories;
+  get categoriesIds(): string[] {
+    return this.#categoriesIds;
   }
 
   get price(): number {

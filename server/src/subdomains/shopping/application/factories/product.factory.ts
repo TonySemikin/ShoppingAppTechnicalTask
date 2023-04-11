@@ -5,7 +5,7 @@ import { CreateProductDto } from '../dto/create-product.dto';
 export class ProductFactory {
   static create(
     { name, description, price }: CreateProductDto,
-    categories: Category[],
+    categoriesIds: string[],
   ): Product {
     return new Product(
       null,
@@ -13,7 +13,7 @@ export class ProductFactory {
       new Date(),
       name,
       description,
-      categories,
+      categoriesIds,
       price,
     );
   }

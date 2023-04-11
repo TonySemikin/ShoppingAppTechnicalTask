@@ -38,11 +38,19 @@ export class CategoryMongoRepository implements CategoryRepository {
   }
 
   async loadByIds(ids: string[]): Promise<Category[]> {
-    throw new Error('Method not implemented.');
+    const categories = await this.collection.find(ids).toArray();
+
+    return categories.map((c) =>
+      CategoryMongoDocumentMapper.documentToEntity(c),
+    );
   }
 
   async loadAll(): Promise<Category[]> {
-    throw new Error('Method not implemented.');
+    const documents = await this.collection.find().toArray();
+
+    return documents.map((document) =>
+      CategoryMongoDocumentMapper.documentToEntity(document),
+    );
   }
 
   //*** GETTERS ***//

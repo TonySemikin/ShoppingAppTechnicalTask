@@ -58,7 +58,10 @@ export class ImsService {
       throw new BadRequestException('Provided categoriesIds do not exist');
     }
 
-    const newProduct = ProductFactory.create(dto, categories);
+    const newProduct = ProductFactory.create(
+      dto,
+      categories.map((c) => c.id),
+    );
 
     return await this.productRepository.save(newProduct);
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Collection, ObjectId } from 'mongodb';
 import { MongoService } from 'src/aop/db/mongo/mongo.service';
+import { Utils } from 'src/shared/utils/utils';
 import { ProductRepository } from 'src/subdomains/shopping/application/repositories/product.repository';
 import { Product } from 'src/subdomains/shopping/domain/entities/product';
 import { ProductMongoDocument } from '../documents/product.mongo.document';
@@ -11,10 +12,7 @@ import { CategoryMongoRepository } from './category.mongo.repository';
 export class ProductMongoRepository implements ProductRepository {
   private collection: Collection<ProductMongoDocument>;
 
-  constructor(
-    dbService: MongoService,
-    private readonly categoryRepository: CategoryMongoRepository,
-  ) {
+  constructor(dbService: MongoService) {
     this.collection = dbService.getCollection<ProductMongoDocument>('product');
   }
 
@@ -37,11 +35,7 @@ export class ProductMongoRepository implements ProductRepository {
       return null;
     }
 
-    const categories = await this.categoryRepository._collection
-      .find(document.categoriesIds)
-      .toArray();
-
-    return ProductMongoDocumentMapper.documentToEntity(document, categories);
+    return ProductMongoDocumentMapper.documentToEntity(document);
   }
 
   async loadForCategory(
@@ -49,6 +43,17 @@ export class ProductMongoRepository implements ProductRepository {
     from: number,
     to: number,
   ): Promise<Product[]> {
-    throw new Error('Method not implemented.');
+    const skip = Utils.round(from - 1, 0);
+    const limit = Utils.round(to - from, 0);
+
+    const documents = await this.collection
+      .find({
+        categoriesIds: [categoryId],
+      })
+      .skip(skip)
+      .limit(limit)
+      .toArray();
+
+    return documents.map((d) => ProductMongoDocumentMapper.documentToEntity(d));
   }
 }
