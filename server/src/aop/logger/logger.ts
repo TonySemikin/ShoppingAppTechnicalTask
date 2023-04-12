@@ -1,6 +1,6 @@
 import * as winston from 'winston';
 
-import { configuration } from './configuration';
+import { configuration } from '../config/configuration';
 
 const logLevels = {
   levels: {
@@ -21,7 +21,8 @@ const logLevels = {
   },
 };
 
-type CustomLogger = winston.Logger & Record<keyof typeof logLevels.levels, winston.LeveledLogMethod>;
+type CustomLogger = winston.Logger &
+  Record<keyof typeof logLevels.levels, winston.LeveledLogMethod>;
 
 class Logger {
   private static logger: CustomLogger;
@@ -54,11 +55,20 @@ class Logger {
           level: configuration.LOG_OUTPUT_LEVEL,
           format: combine(timestamp(), logFormat),
         }),
-        new File({ filename: 'logs/json/fatal.log', level: 'fatal', format: combine(timestamp(), json()) }),
-        new File({ filename: 'logs/json/error.log', level: 'error', format: combine(timestamp(), json()) }),
+        new File({
+          filename: 'logs/json/fatal.log',
+          level: 'fatal',
+          format: combine(timestamp(), json()),
+        }),
+        new File({
+          filename: 'logs/json/error.log',
+          level: 'error',
+          format: combine(timestamp(), json()),
+        }),
       ],
       exceptionHandlers: [new File({ filename: 'logs/exceptions.log' })],
-    }) as winston.Logger & Record<keyof typeof logLevels.levels, winston.LeveledLogMethod>;
+    }) as winston.Logger &
+      Record<keyof typeof logLevels.levels, winston.LeveledLogMethod>;
 
     winston.addColors(logLevels.colors);
 

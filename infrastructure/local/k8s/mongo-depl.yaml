@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongo-depl
+  name: server-mongo-depl
   namespace: jacando-task
 spec:
   replicas: 1
@@ -27,7 +27,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongo-srv
+  name: server-mongo-srv
   namespace: jacando-task
 spec:
   selector:
@@ -41,7 +41,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongo-ext-port
+  name: server-mongo-ext-port
   namespace: jacando-task
 spec:
   type: NodePort
