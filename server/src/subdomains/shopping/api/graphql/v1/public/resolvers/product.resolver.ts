@@ -12,6 +12,15 @@ export class ProductResolver {
     return this.shoppingService.getProductById(id);
   }
 
+  @Query((returns) => [ProductSchema])
+  async productsByCategory(
+    @Args('categoryId', { type: () => String }) categoryId: string,
+    @Args('from', { type: () => Number }) from: number,
+    @Args('to', { type: () => Number }) to: number,
+  ) {
+    return this.shoppingService.getProductsByCategory(categoryId, from, to);
+  }
+
   @ResolveField()
   async categories(@Parent() product: Product) {
     const { categoriesIds } = product;

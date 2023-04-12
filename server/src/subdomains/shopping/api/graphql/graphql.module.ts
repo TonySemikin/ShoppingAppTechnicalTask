@@ -4,6 +4,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { configuration } from 'src/aop/config/configuration';
 import { ApplicationModule } from '../../application/application.module';
 import { ProductResolver } from './v1/public/resolvers/product.resolver';
+import { CategoryResolver } from './v1/public/resolvers/category.resolver';
 
 const { API_BASE_URL, API_VERSION } = configuration;
 
@@ -17,6 +18,6 @@ const { API_BASE_URL, API_VERSION } = configuration;
       autoSchemaFile: true,
     }),
   ],
-  providers: [ProductResolver],
+  providers: [ProductResolver, CategoryResolver],
 })
 export class GraphQLApiModule {}

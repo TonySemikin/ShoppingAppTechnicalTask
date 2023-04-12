@@ -8,12 +8,12 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-04-12T07:11:27.190Z",
-    "modified": "2023-04-12T09:27:35.257Z",
+    "modified": "2023-04-12T11:05:00.195Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"Candies\",\n  \"description\": \"Delicious candies\"\n}",
+      "raw": "{\n  \"name\": \"Candies 2\",\n  \"description\": \"Delicious candies\"\n}",
       "form": []
     },
     "tests": [
@@ -74,12 +74,12 @@
     "method": "POST",
     "sortNum": 27500,
     "created": "2023-04-12T09:32:55.418Z",
-    "modified": "2023-04-12T10:28:16.222Z",
+    "modified": "2023-04-12T11:04:18.029Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"Lindt 11\",\n  \"description\": \"Delicious Lindt\",\n  \"categoriesIds\": [\"6436798744196dbb8f44d555\"],\n  \"price\": 3.50\n}",
+      "raw": "{\n  \"name\": \"Lindt 16\",\n  \"description\": \"Delicious Lindt\",\n  \"categoriesIds\": [\"64369002b84320483beb7cdb\"],\n  \"price\": 3.50\n}",
       "form": []
     },
     "tests": [
@@ -122,16 +122,16 @@
     "colId": "26b9b478-88b4-4f63-9e78-d0da58e536e8",
     "containerId": "",
     "name": "Add Category to Product",
-    "url": "{{url}}/ims/products/643687a544196dbb8f44db1d/add-category",
+    "url": "{{url}}/ims/products/6436900db84320483beb7ce2/add-category",
     "method": "PATCH",
     "sortNum": 47500,
     "created": "2023-04-12T09:52:08.683Z",
-    "modified": "2023-04-12T10:33:56.387Z",
+    "modified": "2023-04-12T11:05:09.628Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"categoryId\": \"6436749244196dbb8f44d3b7\"\n}",
+      "raw": "{\n  \"categoryId\": \"6436905cb84320483beb7d29\"\n}",
       "form": []
     },
     "tests": [
