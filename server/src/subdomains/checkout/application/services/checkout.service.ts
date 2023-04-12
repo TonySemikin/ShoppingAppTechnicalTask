@@ -4,16 +4,29 @@ import { Order } from '../../domain/entities/order';
 import { ICreateOrderDto } from '../dto/create-order.dto';
 import { OrderFactory } from '../factories/order.factory';
 import {
+  CheckoutMessageBroker,
+  CHECKOUT_MESSAGE_BROKER,
+} from '../messaging/checkout.message-broker';
+import {
   OrderRepository,
   ORDER_REPOSITORY,
 } from '../repositories/order.repository';
+/**
+ * @note in real-life scenario would not be imported via source code
+ * Rather references from open host messaging API definition of Payment service
+ */
+import { PaymentSucceededEvent } from 'src/subdomains/payment/domain/events/payment-succeeded.event';
 
 @Injectable()
 export class CheckoutService {
   constructor(
     @Inject(ORDER_REPOSITORY) private orderRepository: OrderRepository,
+    @Inject(CHECKOUT_MESSAGE_BROKER)
+    private checkoutMessageBroker: CheckoutMessageBroker,
     private readonly cartService: CartService,
-  ) {}
+  ) {
+    this.subscribeToEvents();
+  }
 
   //*** PUBLIC API ***//
 
@@ -48,11 +61,20 @@ export class CheckoutService {
     return await this.orderRepository.save(order);
   }
 
-  async paymentSucceeded(orderId: string): Promise<Order> {
+  async paymentSucceeded({ orderId }): Promise<void> {
     const order = await this.getOrderById(orderId);
 
     order.paymentSucceeded();
 
-    return await this.orderRepository.save(order);
+    await this.orderRepository.save(order);
+  }
+
+  //*** MESSAGING API ***//
+
+  private subscribeToEvents() {
+    this.checkoutMessageBroker.listenToEvent<{ orderId: string }>(
+      PaymentSucceededEvent._name,
+      this.paymentSucceeded,
+    );
   }
 }

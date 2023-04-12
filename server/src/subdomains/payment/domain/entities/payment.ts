@@ -2,11 +2,19 @@ import { Entity } from 'src/shared/entities/entity';
 import { PaymentStatus } from '../enums/payment-status.enum';
 
 export class Payment extends Entity {
+  #orderId: string;
   #status: PaymentStatus;
 
-  constructor(id: string, created: Date, updated: Date, status: PaymentStatus) {
+  constructor(
+    id: string,
+    created: Date,
+    updated: Date,
+    orderId: string,
+    status: PaymentStatus,
+  ) {
     super(id, created, updated);
 
+    this.#orderId = orderId;
     this.#status = status;
   }
 
@@ -31,6 +39,10 @@ export class Payment extends Entity {
   }
 
   //*** GETTERS ***//
+
+  get orderId(): string {
+    return this.#orderId;
+  }
 
   get status(): PaymentStatus {
     return this.#status;

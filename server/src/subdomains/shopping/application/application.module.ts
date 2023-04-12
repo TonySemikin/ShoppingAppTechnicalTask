@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CategoryMongoRepository } from '../infrastructure/db/mongo/repositories/category.mongo.repository';
 import { ProductMongoRepository } from '../infrastructure/db/mongo/repositories/product.mongo.repository';
-import { InfrastructureModule } from '../infrastructure/infrastrucutre.module';
+import { InfrastructureModule } from '../infrastructure/infrastructure.module';
 import { CATEGORY_REPOSITORY } from './repositories/category.repository';
 import { PRODUCT_REPOSITORY } from './repositories/product.repository';
 import { ImsService } from './services/ims.service';

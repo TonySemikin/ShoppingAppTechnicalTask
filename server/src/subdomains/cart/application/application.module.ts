@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ApplicationModule as ShoppingApplicationModule } from 'src/subdomains/shopping/application/application.module';
 import { CartMongoRepository } from '../infrastructure/db/mongo/repositories/cart.mongo.repository';
-import { InfrastructureModule } from '../infrastructure/infrastrucutre.module';
+import { InfrastructureModule } from '../infrastructure/infrastructure.module';
 import { CART_REPOSITORY } from './repositories/cart.repository';
 import { CartService } from './services/cart.service';
 

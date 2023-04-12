@@ -15,9 +15,9 @@ export class UserService {
 
   //*** PUBLIC API ***//
 
-  async getProductById(userId: string): Promise<User> {
+  async getUserById(userId: string): Promise<User> {
     const user = await this.userRepository.loadById(userId);
-    if (!user) throw new NotFoundException('Product not found');
+    if (!user) throw new NotFoundException('User not found');
 
     return user;
   }

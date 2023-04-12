@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { OrderMongoRepository } from '../infrastructure/db/mongo/repositories/order.mongo.repository';
 import { ApplicationModule as CartApplicationModule } from 'src/subdomains/cart/application/application.module';
-import { InfrastructureModule } from '../infrastructure/infrastrucutre.module';
+import { InfrastructureModule } from '../infrastructure/infrastructure.module';
 import { ORDER_REPOSITORY } from './repositories/order.repository';
 import { CheckoutService } from './services/checkout.service';
+import { CHECKOUT_MESSAGE_BROKER } from './messaging/checkout.message-broker';
+import { CheckoutInProcessMessageBroker } from '../infrastructure/messaging/checkout-in-process-message-broker.service';
 
 @Module({
   /**
@@ -16,6 +18,10 @@ import { CheckoutService } from './services/checkout.service';
     {
       provide: ORDER_REPOSITORY,
       useClass: OrderMongoRepository,
+    },
+    {
+      provide: CHECKOUT_MESSAGE_BROKER,
+      useClass: CheckoutInProcessMessageBroker,
     },
     CheckoutService,
   ],
