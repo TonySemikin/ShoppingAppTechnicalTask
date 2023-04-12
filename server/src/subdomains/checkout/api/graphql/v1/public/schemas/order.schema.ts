@@ -2,24 +2,9 @@ import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
 import { OrderStatus } from 'src/subdomains/checkout/domain/enums/order-status.enum';
 
 @ObjectType()
-export class OrderSchema {
+export class AddressSchema {
   @Field()
-  id: string;
-
-  @Field()
-  status: OrderStatus;
-
-  @Field()
-  cartId: string;
-
-  @Field((type) => AddressSchema)
-  deliveryAddress: AddressSchema;
-
-  @Field((type) => [OrderItemSchema])
-  items: OrderItemSchema[];
-
-  @Field((type) => Float)
-  total: number;
+  shortDescription: string;
 }
 
 @ObjectType()
@@ -38,7 +23,22 @@ export class OrderItemSchema {
 }
 
 @ObjectType()
-export class AddressSchema {
+export class OrderSchema {
   @Field()
-  shortDescription: string;
+  id: string;
+
+  @Field()
+  status: OrderStatus;
+
+  @Field()
+  cartId: string;
+
+  @Field((type) => AddressSchema)
+  deliveryAddress: AddressSchema;
+
+  @Field((type) => [OrderItemSchema])
+  items: OrderItemSchema[];
+
+  @Field((type) => Float)
+  total: number;
 }

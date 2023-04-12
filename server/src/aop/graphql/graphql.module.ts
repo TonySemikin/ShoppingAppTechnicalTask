@@ -12,7 +12,7 @@ const { API_BASE_URL, API_VERSION } = configuration;
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: configuration.GRAPHQL_PLAYGROUND,
-      path: `${API_BASE_URL}/${API_VERSION}/graphql-playground`,
+      path: `${API_BASE_URL}/${API_VERSION}/graphql`,
       autoSchemaFile: true,
     }),
   ],
