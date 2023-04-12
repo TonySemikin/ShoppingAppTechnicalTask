@@ -8,4 +8,4 @@ import { InfrastructureModule } from './infrastructure/infrastrucutre.module';
   controllers: [],
   providers: [],
 })
-export class PaymentModule {}
+export class CheckoutModule {}

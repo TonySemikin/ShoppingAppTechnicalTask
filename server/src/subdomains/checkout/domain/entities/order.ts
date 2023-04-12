@@ -3,7 +3,7 @@ import { Entity } from 'src/shared/entities/entity';
 import { OrderStatus } from '../enums/order-status.enum';
 import { Cart } from '../interfaces/cart.interface';
 import { OrderItem } from '../values/order-item.value';
-import { Address } from './address';
+import { Address } from '../values/address';
 
 export class Order extends Entity {
   #status: OrderStatus;

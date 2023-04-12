@@ -19,7 +19,7 @@ export class CartService {
 
   async getCartById(cartId: string): Promise<Cart> {
     const cart = await this.cartRepository.loadById(cartId);
-    if (!cart) throw new NotFoundException('Product not found');
+    if (!cart) throw new NotFoundException('Cart not found');
 
     return cart;
   }
@@ -38,6 +38,12 @@ export class CartService {
      * in real-life situation would be accessed by RPC, REST or async messaging call via Shopping API or Infrastructure layer
      */
     const product = await this.shoppingService.getProductById(dto.productId);
+    if (!product) {
+      throw new NotFoundException(
+        `Product with ID ${dto.productId} not found.`,
+      );
+    }
+
     const item = CartFactory.createItem(dto, product);
 
     cart.addItemToCart(item);
