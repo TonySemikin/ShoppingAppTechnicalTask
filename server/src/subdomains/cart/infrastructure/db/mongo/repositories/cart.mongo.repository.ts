@@ -4,7 +4,6 @@ import { MongoService } from 'src/aop/db/mongo/mongo.service';
 import { CartRepository } from 'src/subdomains/cart/application/repositories/cart.repository';
 import { Cart } from 'src/subdomains/cart/domain/entities/cart';
 import { CartMongoDocument } from '../documents/cart.mongo.document';
-import { CartMongoDocumentMapper } from '../mappers/cart.mongo.mapper';
 
 @Injectable()
 export class CartMongoRepository implements CartRepository {
@@ -15,15 +14,15 @@ export class CartMongoRepository implements CartRepository {
   }
 
   async save(entity: Cart): Promise<Cart> {
-    const document = CartMongoDocumentMapper.entityToDocument(entity);
+    const document = CartMongoDocument.serialize(entity);
 
-    await this.collection.updateOne(
-      { _id: new ObjectId(document.id) },
+    const { upsertedId } = await this.collection.updateOne(
+      document._id ? { _id: document._id } : { ...document },
       { $set: document },
       { upsert: true },
     );
 
-    return entity;
+    return CartMongoDocument.appendId(document, document._id ?? upsertedId);
   }
 
   async loadById(_id: string): Promise<Cart> {
@@ -33,6 +32,6 @@ export class CartMongoRepository implements CartRepository {
       return null;
     }
 
-    return CartMongoDocumentMapper.documentToEntity(document);
+    return CartMongoDocument.deserialize(document);
   }
 }

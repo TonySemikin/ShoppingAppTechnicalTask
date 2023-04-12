@@ -5,7 +5,6 @@ import { Utils } from 'src/shared/utils/utils';
 import { ProductRepository } from 'src/subdomains/shopping/application/repositories/product.repository';
 import { Product } from 'src/subdomains/shopping/domain/entities/product';
 import { ProductMongoDocument } from '../documents/product.mongo.document';
-import { ProductMongoDocumentMapper } from '../mappers/product.mongo.mapper';
 
 @Injectable()
 export class ProductMongoRepository implements ProductRepository {
@@ -16,15 +15,15 @@ export class ProductMongoRepository implements ProductRepository {
   }
 
   async save(entity: Product): Promise<Product> {
-    const document = ProductMongoDocumentMapper.entityToDocument(entity);
+    const document = ProductMongoDocument.serialize(entity);
 
-    await this.collection.updateOne(
-      { _id: new ObjectId(document.id) },
+    const { upsertedId } = await this.collection.updateOne(
+      document._id ? { _id: document._id } : { ...document },
       { $set: document },
       { upsert: true },
     );
 
-    return entity;
+    return ProductMongoDocument.appendId(document, document._id ?? upsertedId);
   }
 
   async loadById(_id: string): Promise<Product> {
@@ -34,7 +33,7 @@ export class ProductMongoRepository implements ProductRepository {
       return null;
     }
 
-    return ProductMongoDocumentMapper.documentToEntity(document);
+    return ProductMongoDocument.deserialize(document);
   }
 
   async loadForCategory(
@@ -46,13 +45,11 @@ export class ProductMongoRepository implements ProductRepository {
     const limit = Utils.round(to - from, 0);
 
     const documents = await this.collection
-      .find({
-        categoriesIds: [categoryId],
-      })
+      .find({ categoriesIds: categoryId })
       .skip(skip)
       .limit(limit)
       .toArray();
 
-    return documents.map((d) => ProductMongoDocumentMapper.documentToEntity(d));
+    return documents.map((d) => ProductMongoDocument.deserialize(d));
   }
 }

@@ -4,7 +4,6 @@ import { MongoService } from 'src/aop/db/mongo/mongo.service';
 import { CategoryRepository } from 'src/subdomains/shopping/application/repositories/category.repository';
 import { Category } from 'src/subdomains/shopping/domain/entities/category';
 import { CategoryMongoDocument } from '../documents/category.mongo.document';
-import { CategoryMongoDocumentMapper } from '../mappers/category.mongo.mapper';
 
 @Injectable()
 export class CategoryMongoRepository implements CategoryRepository {
@@ -16,15 +15,15 @@ export class CategoryMongoRepository implements CategoryRepository {
   }
 
   async save(entity: Category): Promise<Category> {
-    const document = CategoryMongoDocumentMapper.entityToDocument(entity);
+    const document = CategoryMongoDocument.serialize(entity);
 
-    await this.collection.updateOne(
-      { _id: new ObjectId(document.id) },
+    const { upsertedId } = await this.collection.updateOne(
+      document._id ? { _id: document._id } : { ...document },
       { $set: document },
       { upsert: true },
     );
 
-    return entity;
+    return CategoryMongoDocument.appendId(document, document._id ?? upsertedId);
   }
 
   async loadById(_id: string): Promise<Category> {
@@ -34,28 +33,22 @@ export class CategoryMongoRepository implements CategoryRepository {
       return null;
     }
 
-    return CategoryMongoDocumentMapper.documentToEntity(document);
+    return CategoryMongoDocument.deserialize(document);
   }
 
   async loadByIds(ids: string[]): Promise<Category[]> {
-    const categories = await this.collection.find(ids).toArray();
+    const categories = await this.collection
+      .find({ _id: { $in: ids.map((id) => new ObjectId(id)) } })
+      .toArray();
 
-    return categories.map((c) =>
-      CategoryMongoDocumentMapper.documentToEntity(c),
-    );
+    return categories.map((c) => CategoryMongoDocument.deserialize(c));
   }
 
   async loadAll(): Promise<Category[]> {
     const documents = await this.collection.find().toArray();
 
     return documents.map((document) =>
-      CategoryMongoDocumentMapper.documentToEntity(document),
+      CategoryMongoDocument.deserialize(document),
     );
-  }
-
-  //*** GETTERS ***//
-
-  get _collection(): Collection<CategoryMongoDocument> {
-    return this.collection;
   }
 }

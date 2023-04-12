@@ -80,7 +80,10 @@ export class ImsService {
     return await this.productRepository.save(product);
   }
 
-  async addCategory(productId: string, categoryId: string): Promise<Product> {
+  async addCategoryToProduct(
+    productId: string,
+    categoryId: string,
+  ): Promise<Product> {
     const product = await this.productRepository.loadById(productId);
     if (!product) throw new NotFoundException('Product not found');
 
@@ -92,7 +95,7 @@ export class ImsService {
     return await this.productRepository.save(product);
   }
 
-  async removeCategory(
+  async removeCategoryFromProduct(
     productId: string,
     categoryId: string,
   ): Promise<Product> {
@@ -104,7 +107,7 @@ export class ImsService {
     return await this.productRepository.save(product);
   }
 
-  async updatePrice(productId: string, price: number): Promise<Product> {
+  async updateProductPrice(productId: string, price: number): Promise<Product> {
     const product = await this.productRepository.loadById(productId);
     if (!product) throw new NotFoundException('Product not found');
 
