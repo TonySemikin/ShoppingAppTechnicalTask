@@ -13,8 +13,11 @@ export class CartResolver {
   }
 
   @Mutation((returns) => CartSchema)
-  async createCart(@Args('userId', { type: () => String }) userId: string) {
-    return this.cartService.createCart(userId);
+  async createCart(
+    @Args('userId', { type: () => String }) userId: string,
+    @Args('item', { type: () => CartItemInput }) item: CartItemInput,
+  ) {
+    return this.cartService.createCart(userId, item);
   }
 
   @Mutation((returns) => CartSchema)

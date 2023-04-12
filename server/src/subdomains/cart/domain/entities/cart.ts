@@ -22,6 +22,8 @@ export class Cart extends Entity {
     this.#userId = userId;
     this.#items = items;
     this.#total = total;
+
+    this.updateTotal();
   }
 
   //*** PUBLIC API ***//

@@ -6,9 +6,6 @@ export class CartItemInput implements ICartItemDto {
   @Field()
   productId: string;
 
-  @Field()
-  productName: string;
-
   @Field((type) => Int)
   quantity: number;
 }

@@ -38,7 +38,7 @@ export class PaymentService {
   private subscribeToEvents() {
     this.paymentMessageBroker.listenToEvent(
       PaymentCreateCommand._name,
-      this.createPayment,
+      this.createPayment.bind(this),
     );
   }
 

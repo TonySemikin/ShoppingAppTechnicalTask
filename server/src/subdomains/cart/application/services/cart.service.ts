@@ -24,8 +24,19 @@ export class CartService {
     return cart;
   }
 
-  async createCart(userId: string): Promise<Cart> {
-    const newCart = CartFactory.create(userId);
+  async createCart(userId: string, dto: ICartItemDto): Promise<Cart> {
+    /**
+     * @note
+     * in real-life situation would be accessed by RPC, REST or async messaging call via Shopping API or Infrastructure layer
+     */
+    const product = await this.shoppingService.getProductById(dto.productId);
+    if (!product) {
+      throw new NotFoundException(
+        `Product with ID ${dto.productId} not found.`,
+      );
+    }
+
+    const newCart = CartFactory.create(userId, dto, product);
 
     return await this.cartRepository.save(newCart);
   }

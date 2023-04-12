@@ -16,6 +16,7 @@ import {
  * Rather references from open host messaging API definition of Payment service
  */
 import { PaymentSucceededEvent } from 'src/subdomains/payment/domain/events/payment-succeeded.event';
+import { PaymentCreateCommand } from 'src/subdomains/payment/domain/commands/payment-create.command';
 
 @Injectable()
 export class CheckoutService {
@@ -58,6 +59,7 @@ export class CheckoutService {
 
     order.proceedToPayment(cart);
 
+    this.checkoutMessageBroker.emitEvent(new PaymentCreateCommand(orderId));
     return await this.orderRepository.save(order);
   }
 
@@ -74,7 +76,7 @@ export class CheckoutService {
   private subscribeToEvents() {
     this.checkoutMessageBroker.listenToEvent<{ orderId: string }>(
       PaymentSucceededEvent._name,
-      this.paymentSucceeded,
+      this.paymentSucceeded.bind(this),
     );
   }
 }

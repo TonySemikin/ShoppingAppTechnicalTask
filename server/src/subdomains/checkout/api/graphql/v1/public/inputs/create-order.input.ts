@@ -1,4 +1,4 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 import { ICreateOrderDto } from 'src/subdomains/checkout/application/dto/create-order.dto';
 import { AddressInput } from './address.input';
 
@@ -9,7 +9,4 @@ export class CreateOrderInput implements ICreateOrderDto {
 
   @Field((type) => AddressInput)
   address: AddressInput;
-
-  @Field((type) => Int)
-  quantity: number;
 }

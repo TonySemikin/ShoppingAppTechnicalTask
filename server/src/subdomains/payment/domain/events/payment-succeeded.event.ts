@@ -1,15 +1,9 @@
 import { BaseEvent } from 'src/aop/messaging/events/base.event';
 
-export class PaymentSucceededEvent implements BaseEvent {
+export class PaymentSucceededEvent extends BaseEvent {
   static readonly _name = 'payment.succeeded.event';
 
-  readonly name: string;
-  readonly payload: {
-    orderId: string;
-  };
-
   constructor(orderId: string) {
-    this.name = PaymentSucceededEvent._name;
-    this.payload = { orderId };
+    super(PaymentSucceededEvent._name, { orderId });
   }
 }

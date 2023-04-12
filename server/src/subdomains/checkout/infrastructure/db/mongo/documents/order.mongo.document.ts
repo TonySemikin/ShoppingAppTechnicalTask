@@ -33,7 +33,7 @@ export class OrderMongoDocument extends EntityMongoDocument {
       updated,
       status,
       cartId,
-      deliveryAddress: deliveryAddress,
+      deliveryAddress: AddressMongoDocument.serialize(deliveryAddress),
       items: items.map((i) => OrderItemMongoDocument.serialize(i)),
       total,
     };
@@ -50,7 +50,7 @@ export class OrderMongoDocument extends EntityMongoDocument {
       updated,
       status,
       cartId,
-      deliveryAddressId,
+      deliveryAddress,
       items,
       total,
     } = document;
@@ -61,7 +61,7 @@ export class OrderMongoDocument extends EntityMongoDocument {
       updated,
       status,
       cartId,
-      deliveryAddressId,
+      AddressMongoDocument.deserialize(deliveryAddress),
       items.map((i) => OrderItemMongoDocument.deserialize(i)),
       total,
     );
