@@ -8,16 +8,16 @@ import {
   Query,
   ValidationPipe,
 } from '@nestjs/common';
-import { AdjustProductCategoryDto } from 'src/subdomains/shopping/application/dto/adjust-product-category.dto';
-import { CategoriesQuery } from 'src/subdomains/shopping/application/dto/categories.query';
-import { CreateCategoryDto } from 'src/subdomains/shopping/application/dto/create-category.dto';
-import { CreateProductDto } from 'src/subdomains/shopping/application/dto/create-product.dto';
-import { ProductsQuery } from 'src/subdomains/shopping/application/dto/products.query';
-import { UpdateProductPriceDto } from 'src/subdomains/shopping/application/dto/update-product-price.dto';
 import { ImsService } from 'src/subdomains/shopping/application/services/ims.service';
 import { ShoppingService } from 'src/subdomains/shopping/application/services/shopping.service';
-import { CategoryOutputDto } from '../dto/category.output-dto';
-import { ProductOutputDto } from '../dto/product.output-dto';
+import { AdjustProductCategoryDto } from '../dto/input/adjust-product-category.input-dto';
+import { CategoriesQuery } from '../dto/input/categories.query';
+import { CreateCategoryDto } from '../dto/input/create-category.input-dto';
+import { CreateProductDto } from '../dto/input/create-product.input-dto';
+import { ProductsQuery } from '../dto/input/products.query';
+import { UpdateProductPriceDto } from '../dto/input/update-product-price.input-dto';
+import { CategoryOutputDto } from '../dto/output/category.output-dto';
+import { ProductOutputDto } from '../dto/output/product.output-dto';
 import { CategoryOutputDtoMapper } from '../mappers/category.output-dto.mapper';
 import { ProductOutputDtoMapper } from '../mappers/product.output-dto.mapper';
 

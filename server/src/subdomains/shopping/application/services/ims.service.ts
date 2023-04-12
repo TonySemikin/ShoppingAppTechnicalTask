@@ -6,9 +6,9 @@ import {
 } from '@nestjs/common';
 import { Category } from '../../domain/entities/category';
 import { Product } from '../../domain/entities/product';
-import { CreateCategoryDto } from '../dto/create-category.dto';
-import { CreateProductDto } from '../dto/create-product.dto';
-import { UpdateProductNameAndDescriptionDto } from '../dto/update-product-name-and-description.dto';
+import { ICreateCategoryDto } from '../dto/create-category.dto';
+import { ICreateProductDto } from '../dto/create-product.dto';
+import { IUpdateProductNameAndDescriptionDto } from '../dto/update-product-name-and-description.dto';
 import { CategoryFactory } from '../factories/category.factory';
 import { ProductFactory } from '../factories/product.factory';
 import {
@@ -29,7 +29,7 @@ export class ImsService {
 
   //*** PUBLIC API ***//
 
-  async createCategory(dto: CreateCategoryDto): Promise<Category> {
+  async createCategory(dto: ICreateCategoryDto): Promise<Category> {
     const newCategory = CategoryFactory.create(dto);
 
     return await this.categoryRepository.save(newCategory);
@@ -37,7 +37,7 @@ export class ImsService {
 
   async updateCategoryNameAndDescription(
     categoryId: string,
-    dto: CreateCategoryDto,
+    dto: ICreateCategoryDto,
   ): Promise<Category> {
     const category = await this.categoryRepository.loadById(categoryId);
 
@@ -49,7 +49,7 @@ export class ImsService {
     return await this.categoryRepository.save(category);
   }
 
-  async createProduct(dto: CreateProductDto): Promise<Product> {
+  async createProduct(dto: ICreateProductDto): Promise<Product> {
     const categories = await this.categoryRepository.loadByIds(
       dto.categoriesIds,
     );
@@ -68,7 +68,7 @@ export class ImsService {
 
   async updateProductNameAndDescription(
     productId: string,
-    dto: UpdateProductNameAndDescriptionDto,
+    dto: IUpdateProductNameAndDescriptionDto,
   ): Promise<Product> {
     const product = await this.productRepository.loadById(productId);
 

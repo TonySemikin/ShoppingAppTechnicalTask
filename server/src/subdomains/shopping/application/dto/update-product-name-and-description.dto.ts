@@ -1,11 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
-
-export class UpdateProductNameAndDescriptionDto {
-  @IsNotEmpty()
-  @IsString()
+export class IUpdateProductNameAndDescriptionDto {
   name: string;
-
-  @IsNotEmpty()
-  @IsString()
   description: string;
 }

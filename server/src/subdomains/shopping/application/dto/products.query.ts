@@ -1,18 +1,5 @@
-import { Transform } from 'class-transformer';
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
-
-export class ProductsQuery {
-  @IsNotEmpty()
-  @IsString()
+export interface IProductsQuery {
   categoryId: string;
-
-  @IsNotEmpty()
-  @IsInt()
-  @Transform(({ value }) => parseInt(value))
   from: number;
-
-  @IsNotEmpty()
-  @IsInt()
-  @Transform(({ value }) => parseInt(value))
   to: number;
 }

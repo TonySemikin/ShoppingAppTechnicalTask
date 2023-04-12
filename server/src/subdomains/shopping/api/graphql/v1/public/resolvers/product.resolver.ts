@@ -1,6 +1,7 @@
 import { Args, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { ShoppingService } from 'src/subdomains/shopping/application/services/shopping.service';
 import { Product } from 'src/subdomains/shopping/domain/entities/product';
+import { ProductsByCategoryFilter } from '../filters/products-by-category.filter';
 import { ProductSchema } from '../schemas/product.schema';
 
 @Resolver((of) => ProductSchema)
@@ -14,11 +15,10 @@ export class ProductResolver {
 
   @Query((returns) => [ProductSchema])
   async productsByCategory(
-    @Args('categoryId', { type: () => String }) categoryId: string,
-    @Args('from', { type: () => Number }) from: number,
-    @Args('to', { type: () => Number }) to: number,
+    @Args('filter', { type: () => ProductsByCategoryFilter })
+    filter: ProductsByCategoryFilter,
   ) {
-    return this.shoppingService.getProductsByCategory(categoryId, from, to);
+    return this.shoppingService.getProductsByQuery(filter);
   }
 
   @ResolveField()

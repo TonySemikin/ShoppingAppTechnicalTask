@@ -14,13 +14,13 @@ export class Cart extends Entity {
     created: Date,
     updated: Date,
     userId: string,
-    cartItems: CartItem[],
+    items: CartItem[],
     total: number,
   ) {
     super(id, created, updated);
 
     this.#userId = userId;
-    this.#items = cartItems;
+    this.#items = items;
     this.#total = total;
   }
 
@@ -43,8 +43,8 @@ export class Cart extends Entity {
     return this;
   }
 
-  removeItemFromCart(cartItemId: string): this {
-    this.#items = this.#items.filter((item) => item.productId !== cartItemId);
+  removeItemFromCart(productId: string): this {
+    this.#items = this.#items.filter((item) => item.productId !== productId);
     this.updateTotal();
 
     return this;

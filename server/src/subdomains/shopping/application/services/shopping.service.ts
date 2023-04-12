@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { Category } from '../../domain/entities/category';
 import { Product } from '../../domain/entities/product';
-import { CategoriesQuery } from '../dto/categories.query';
-import { ProductsQuery } from '../dto/products.query';
+import { ICategoriesQuery } from '../dto/categories.query';
+import { IProductsQuery } from '../dto/products.query';
 import {
   CategoryRepository,
   CATEGORY_REPOSITORY,
@@ -26,7 +26,7 @@ export class ShoppingService {
 
   //*** PUBLIC API ***//
 
-  async getCategoriesByQuery(query: CategoriesQuery): Promise<Category[]> {
+  async getCategoriesByQuery(query: ICategoriesQuery): Promise<Category[]> {
     return query?.categoriesIds?.length > 0
       ? await this.getCategoriesByIds(query.categoriesIds)
       : await this.getAllCategories();
@@ -40,13 +40,22 @@ export class ShoppingService {
     return await this.categoryRepository.loadByIds(categoriesIds);
   }
 
-  async getProductsByQuery(query: ProductsQuery): Promise<Product[]> {
+  async getProductsByQuery(query: IProductsQuery): Promise<Product[]> {
     const { categoryId, from, to } = query;
 
     return await this.getProductsByCategory(categoryId, from, to);
   }
 
-  async getProductsByCategory(
+  async getProductById(productId: string): Promise<Product> {
+    const product = await this.productRepository.loadById(productId);
+    if (!product) throw new NotFoundException('Product not found');
+
+    return product;
+  }
+
+  //*** HELPER METHODS ***//
+
+  private async getProductsByCategory(
     categoryId: string,
     from: number,
     to: number,
@@ -64,12 +73,5 @@ export class ShoppingService {
     }
 
     return await this.productRepository.loadForCategory(categoryId, from, to);
-  }
-
-  async getProductById(productId: string): Promise<Product> {
-    const product = await this.productRepository.loadById(productId);
-    if (!product) throw new NotFoundException('Product not found');
-
-    return product;
   }
 }

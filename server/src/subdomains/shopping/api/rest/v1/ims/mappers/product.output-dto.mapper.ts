@@ -1,5 +1,5 @@
 import { Product } from 'src/subdomains/shopping/domain/entities/product';
-import { ProductOutputDto } from '../dto/product.output-dto';
+import { ProductOutputDto } from '../dto/output/product.output-dto';
 
 export class ProductOutputDtoMapper {
   public static entityToDto(entity: Product): ProductOutputDto {

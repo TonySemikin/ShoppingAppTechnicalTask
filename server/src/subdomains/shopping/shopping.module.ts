@@ -7,5 +7,6 @@ import { InfrastructureModule } from './infrastructure/infrastrucutre.module';
   imports: [ApiModule, ApplicationModule, InfrastructureModule],
   controllers: [],
   providers: [],
+  exports: [],
 })
 export class ShoppingModule {}
