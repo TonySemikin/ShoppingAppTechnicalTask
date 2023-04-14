@@ -8,5 +8,5 @@ export interface ProductRepository extends Repository<Product> {
     categoryId: string,
     from: number,
     to: number,
-  ): Promise<Product[]>;
+  ): Promise<{ products: Product[]; totalCount: number }>;
 }

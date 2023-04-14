@@ -7,6 +7,7 @@ import {
   CartRepository,
   CART_REPOSITORY,
 } from '../repositories/cart.repository';
+import { Utils } from 'src/shared/utils/utils';
 
 @Injectable()
 export class CartService {
@@ -42,6 +43,7 @@ export class CartService {
   }
 
   async addItemToCart(cartId: string, dto: ICartItemDto): Promise<Cart> {
+    await Utils.delay(1500);
     const cart = await this.getCartById(cartId);
 
     /**
@@ -63,6 +65,7 @@ export class CartService {
   }
 
   async removeItemFromCart(cartId: string, productId: string): Promise<Cart> {
+    await Utils.delay(1500);
     const cart = await this.getCartById(cartId);
 
     cart.removeItemFromCart(productId);
@@ -71,6 +74,7 @@ export class CartService {
   }
 
   async clearCart(cartId: string): Promise<Cart> {
+    await Utils.delay(1500);
     const cart = await this.getCartById(cartId);
 
     cart.clearCart();
@@ -83,6 +87,7 @@ export class CartService {
     productId: string,
     quantity: number,
   ): Promise<Cart> {
+    await Utils.delay(1500);
     const cart = await this.getCartById(cartId);
 
     /**

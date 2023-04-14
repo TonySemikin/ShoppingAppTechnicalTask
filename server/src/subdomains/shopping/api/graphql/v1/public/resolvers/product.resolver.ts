@@ -3,6 +3,7 @@ import { ShoppingService } from 'src/subdomains/shopping/application/services/sh
 import { Product } from 'src/subdomains/shopping/domain/entities/product';
 import { ProductsByCategoryFilter } from '../filters/products-by-category.filter';
 import { ProductSchema } from '../schemas/product.schema';
+import { ProductsSchema } from '../schemas/products.schema';
 
 @Resolver((of) => ProductSchema)
 export class ProductResolver {
@@ -13,7 +14,7 @@ export class ProductResolver {
     return this.shoppingService.getProductById(id);
   }
 
-  @Query((returns) => [ProductSchema])
+  @Query((returns) => ProductsSchema)
   async productsByCategory(
     @Args('filter', { type: () => ProductsByCategoryFilter })
     filter: ProductsByCategoryFilter,

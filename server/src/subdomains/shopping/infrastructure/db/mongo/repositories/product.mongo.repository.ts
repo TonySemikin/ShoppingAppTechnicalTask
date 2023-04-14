@@ -40,16 +40,27 @@ export class ProductMongoRepository implements ProductRepository {
     categoryId: string,
     from: number,
     to: number,
-  ): Promise<Product[]> {
+  ): Promise<{ products: Product[]; totalCount: number }> {
     const skip = Utils.round(from - 1, 0);
     const limit = Utils.round(to - from, 0);
 
-    const documents = await this.collection
-      .find({ categoriesIds: categoryId })
-      .skip(skip)
-      .limit(limit)
-      .toArray();
+    const pipeline = [
+      { $match: { categoriesIds: categoryId } },
+      {
+        $facet: {
+          products: [{ $skip: skip }, { $limit: limit }],
+          totalCount: [{ $count: 'count' }],
+        },
+      },
+      { $unwind: '$totalCount' },
+    ];
 
-    return documents.map((d) => ProductMongoDocument.deserialize(d));
+    const result = await this.collection.aggregate(pipeline).next();
+
+    const products =
+      result?.products.map((d) => ProductMongoDocument.deserialize(d)) ?? [];
+    const totalCount = result?.totalCount.count ?? 0;
+
+    return { products, totalCount };
   }
 }

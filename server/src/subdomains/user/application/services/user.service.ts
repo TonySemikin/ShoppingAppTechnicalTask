@@ -6,6 +6,7 @@ import {
   UserRepository,
   USER_REPOSITORY,
 } from '../repositories/user.repository';
+import { Utils } from 'src/shared/utils/utils';
 
 @Injectable()
 export class UserService {
