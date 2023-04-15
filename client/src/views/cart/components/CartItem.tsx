@@ -2,7 +2,6 @@ import { Avatar, List, Spin } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { ICartItem } from '../queries/cart.query';
 import { useEffect, useState } from 'react';
-import { faker } from '@faker-js/faker';
 import './scss/CartItem.scss';
 
 interface CartItemProps {
@@ -11,7 +10,11 @@ interface CartItemProps {
   onRemoveFromCart: () => void;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ cartItem, onRemoveFromCart }) => {
+const CartItem: React.FC<CartItemProps> = ({
+  cartItem,
+  onRemoveFromCart,
+  index,
+}) => {
   //*** HOOKS ***//
 
   const [loadingRemoveFromCart, setLoadingRemoveFromCart] = useState(false);
@@ -35,7 +38,13 @@ const CartItem: React.FC<CartItemProps> = ({ cartItem, onRemoveFromCart }) => {
     <div className="cart-item">
       <div className="cart-item__name">
         <List.Item.Meta
-          avatar={<Avatar src={faker.image.abstract(50, 50, true)} />}
+          avatar={
+            <Avatar
+              src={`https://loremflickr.com/200/200/abstract?lock=${
+                94862 + index
+              }`}
+            />
+          }
           title={cartItem.productName}
         />
       </div>

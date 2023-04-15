@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker';
 import { IOrderItem } from '../queries/order.query';
 import './scss/OrderItem.scss';
 
@@ -13,7 +12,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ index, item }) => {
       <div className="order-item__info">
         <img
           className="order-item__info-image"
-          src={faker.image.abstract(100, 100, false)}
+          src={`https://loremflickr.com/200/200/abstract?lock=${94862 + index}`}
           alt={item.productName}
         />
         <span className="order-item__info-name">{item.productName}</span>
