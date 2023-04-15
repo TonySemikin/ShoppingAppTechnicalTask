@@ -78,6 +78,7 @@ const Product: React.FC<ProductProps> = ({
     <div className="product">
       <div className="product__info">
         <img
+          className="product__info-image"
           src={`https://loremflickr.com/200/200/abstract?lock=${94862 + index}`}
           alt={product.name}
         />
