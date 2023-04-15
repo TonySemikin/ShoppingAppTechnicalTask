@@ -67,9 +67,9 @@ export class ImsController {
   async getProducts(
     @Query(new ValidationPipe()) query: ProductsQuery,
   ): Promise<ProductOutputDto[]> {
-    const products = await this.shoppingService.getProductsByQuery(query);
+    const result = await this.shoppingService.getProductsByQuery(query);
 
-    return products.map((p) => ProductOutputDtoMapper.entityToDto(p));
+    return result.products.map((p) => ProductOutputDtoMapper.entityToDto(p));
   }
 
   @Get('products/:id')

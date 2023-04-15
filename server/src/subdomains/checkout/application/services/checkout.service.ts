@@ -17,6 +17,7 @@ import {
  */
 import { PaymentSucceededEvent } from 'src/subdomains/payment/domain/events/payment-succeeded.event';
 import { PaymentCreateCommand } from 'src/subdomains/payment/domain/commands/payment-create.command';
+import { Utils } from 'src/shared/utils/utils';
 
 @Injectable()
 export class CheckoutService {
@@ -39,6 +40,11 @@ export class CheckoutService {
   }
 
   async createOrder(dto: ICreateOrderDto): Promise<Order> {
+    /**
+     * @important - delay is just for UI demo purposes, to see some delay and spinners.
+     */
+    await Utils.delay(300);
+
     const cart = await this.cartService.getCartById(dto.cartId);
     if (!cart) {
       throw new NotFoundException(`Cart with ID ${dto.cartId} not found.`);
@@ -51,6 +57,11 @@ export class CheckoutService {
   }
 
   async proceedToPayment(orderId: string): Promise<Order> {
+    /**
+     * @important - delay is just for UI demo purposes, to see some delay and spinners.
+     */
+    await Utils.delay(300);
+
     const order = await this.getOrderById(orderId);
     const cart = await this.cartService.getCartById(order.cartId);
     if (!cart) {

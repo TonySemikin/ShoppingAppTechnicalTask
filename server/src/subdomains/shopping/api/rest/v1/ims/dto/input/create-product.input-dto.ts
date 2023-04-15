@@ -1,6 +1,7 @@
 import {
   ArrayNotEmpty,
   IsArray,
+  IsInt,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -25,4 +26,8 @@ export class CreateProductDto implements ICreateProductDto {
   @IsNotEmpty()
   @IsNumber()
   price: number;
+
+  @IsNotEmpty()
+  @IsInt()
+  stock: number;
 }

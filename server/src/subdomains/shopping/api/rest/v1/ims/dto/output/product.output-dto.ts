@@ -4,4 +4,5 @@ export class ProductOutputDto {
   description: string;
   categoriesIds: string[];
   price: number;
+  stock: number;
 }

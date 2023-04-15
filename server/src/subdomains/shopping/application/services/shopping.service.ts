@@ -16,6 +16,7 @@ import {
   ProductRepository,
   PRODUCT_REPOSITORY,
 } from '../repositories/product.repository';
+import { Utils } from 'src/shared/utils/utils';
 
 @Injectable()
 export class ShoppingService {
@@ -33,6 +34,11 @@ export class ShoppingService {
   }
 
   async getAllCategories(): Promise<Category[]> {
+    /**
+     * @important - delay is just for UI demo purposes, to see some delay and spinners.
+     */
+    await Utils.delay(300);
+
     return await this.categoryRepository.loadAll();
   }
 
@@ -40,7 +46,13 @@ export class ShoppingService {
     return await this.categoryRepository.loadByIds(categoriesIds);
   }
 
-  async getProductsByQuery(query: IProductsQuery): Promise<Product[]> {
+  async getProductsByQuery(
+    query: IProductsQuery,
+  ): Promise<{ products: Product[]; totalCount: number }> {
+    /**
+     * @important - delay is just for UI demo purposes, to see some delay and spinners.
+     */
+    await Utils.delay(300);
     const { categoryId, from, to } = query;
 
     return await this.getProductsByCategory(categoryId, from, to);
@@ -59,7 +71,7 @@ export class ShoppingService {
     categoryId: string,
     from: number,
     to: number,
-  ): Promise<Product[]> {
+  ): Promise<{ products: Product[]; totalCount: number }> {
     if (from <= 0) {
       throw new BadRequestException(
         `Starting product sequence ('from') must be a positive integer`,

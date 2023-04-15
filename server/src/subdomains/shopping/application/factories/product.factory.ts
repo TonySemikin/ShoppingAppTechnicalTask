@@ -3,7 +3,7 @@ import { ICreateProductDto } from '../dto/create-product.dto';
 
 export class ProductFactory {
   static create(
-    { name, description, price }: ICreateProductDto,
+    { name, description, price, stock }: ICreateProductDto,
     categoriesIds: string[],
   ): Product {
     return new Product(
@@ -14,6 +14,7 @@ export class ProductFactory {
       description,
       categoriesIds,
       price,
+      stock,
     );
   }
 }

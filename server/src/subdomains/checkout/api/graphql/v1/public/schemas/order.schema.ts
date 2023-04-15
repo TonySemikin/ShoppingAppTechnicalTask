@@ -30,8 +30,8 @@ export class OrderSchema {
   @Field()
   status: OrderStatus;
 
-  @Field()
-  cartId: string;
+  @Field({ nullable: true })
+  cartId: string | null;
 
   @Field((type) => AddressSchema)
   deliveryAddress: AddressSchema;

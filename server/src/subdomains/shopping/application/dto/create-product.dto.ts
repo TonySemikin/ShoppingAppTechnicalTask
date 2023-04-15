@@ -3,4 +3,5 @@ export interface ICreateProductDto {
   description: string;
   categoriesIds: string[];
   price: number;
+  stock: number;
 }
