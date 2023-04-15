@@ -73,6 +73,14 @@ const CategoryList: React.FC<CategoryListProps> = ({ onCategorySelected }) => {
             itemLayout="horizontal"
             className="category-list__content-list"
             dataSource={data?.categories}
+            locale={{
+              emptyText: (
+                <Empty
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                  description={'No categories found'}
+                />
+              ),
+            }}
             renderItem={(category, index) => (
               <Category
                 index={index}
