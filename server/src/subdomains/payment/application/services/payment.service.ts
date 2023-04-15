@@ -48,7 +48,7 @@ export class PaymentService {
     /**
      * @note mimicking event processing delay
      */
-    await Utils.delay(20000);
+    await Utils.delay(10000);
     await this.confirmPayment(savedPayment);
   }
 

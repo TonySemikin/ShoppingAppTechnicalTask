@@ -16,11 +16,11 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    # - image: jacando-task/client
-    #   context: ../../client
-    #   docker:
-    #     dockerfile: Dockerfile.dev
-    #   sync:
-    #     manual:
-    #       - src: '**/*.js'
-    #         dest: .
+    - image: jacando-task/client
+      context: ../../client
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .

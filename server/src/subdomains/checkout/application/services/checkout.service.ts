@@ -40,7 +40,11 @@ export class CheckoutService {
   }
 
   async createOrder(dto: ICreateOrderDto): Promise<Order> {
-    await Utils.delay(2000);
+    /**
+     * @important - delay is just for UI demo purposes, to see some delay and spinners.
+     */
+    await Utils.delay(300);
+
     const cart = await this.cartService.getCartById(dto.cartId);
     if (!cart) {
       throw new NotFoundException(`Cart with ID ${dto.cartId} not found.`);
@@ -53,7 +57,11 @@ export class CheckoutService {
   }
 
   async proceedToPayment(orderId: string): Promise<Order> {
-    await Utils.delay(2000);
+    /**
+     * @important - delay is just for UI demo purposes, to see some delay and spinners.
+     */
+    await Utils.delay(300);
+
     const order = await this.getOrderById(orderId);
     const cart = await this.cartService.getCartById(order.cartId);
     if (!cart) {

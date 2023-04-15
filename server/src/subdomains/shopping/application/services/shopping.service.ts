@@ -34,7 +34,10 @@ export class ShoppingService {
   }
 
   async getAllCategories(): Promise<Category[]> {
-    await Utils.delay(3000);
+    /**
+     * @important - delay is just for UI demo purposes, to see some delay and spinners.
+     */
+    await Utils.delay(300);
 
     return await this.categoryRepository.loadAll();
   }
@@ -46,7 +49,10 @@ export class ShoppingService {
   async getProductsByQuery(
     query: IProductsQuery,
   ): Promise<{ products: Product[]; totalCount: number }> {
-    await Utils.delay(1500);
+    /**
+     * @important - delay is just for UI demo purposes, to see some delay and spinners.
+     */
+    await Utils.delay(300);
     const { categoryId, from, to } = query;
 
     return await this.getProductsByCategory(categoryId, from, to);
