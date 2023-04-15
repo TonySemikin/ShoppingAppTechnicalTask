@@ -1,14 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Col, Row, Avatar, Badge, Layout, theme, Space } from 'antd';
+import { Avatar, Badge } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import logo from '../../logo.png';
 import { useModals } from '../contexts/ModalContext';
 import { useSession } from '../contexts/SessionContext';
 import { useShoppingCart } from '../../views/cart/contexts/ShoppingCartContext';
 import CartIcon from '../../views/cart/components/CartIcon';
-
-const { Header: AntHeader } = Layout;
+import { useTheme } from '../contexts/ThemeContext';
+import './scss/Header.scss';
 
 const Header: React.FC = () => {
   //*** HOOKS ***//
@@ -20,6 +20,7 @@ const Header: React.FC = () => {
   const { cart } = useShoppingCart();
   const { user } = useSession();
   const { setModals } = useModals();
+  const { contrastRed } = useTheme();
 
   //*** HANDLERS ***//
 
@@ -31,50 +32,34 @@ const Header: React.FC = () => {
     navigate('/shop');
   };
 
-  //*** CONFIG ***//
-
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-
   return (
-    <Layout>
-      <AntHeader
-        style={{
-          padding: 5,
-          background: colorBgContainer,
-        }}>
-        <Row>
-          <Col span={18}>
-            <Space align="center" onClick={handleHomeClick}>
-              <img
-                src={logo}
-                alt="Tony & Jacando Icon"
-                style={{ marginRight: 5, width: 50 }}
-              />
-              <span>Tony & Jacando</span>
-            </Space>
-          </Col>
-          <Col span={6} style={{ textAlign: 'right' }}>
-            <Space align="center">
-              {user && (
-                <>
-                  <span style={{ marginRight: 20 }}>{user.username}</span>
-                  <Badge count={cart?.items.length ?? null}>
-                    <Avatar
-                      alt="User Icon"
-                      style={{ marginRight: 20, backgroundColor: '#87d068' }}
-                      icon={<UserOutlined />}
-                    />
-                  </Badge>
-                </>
-              )}
+    <header className="header">
+      <div className="header__logo" onClick={handleHomeClick}>
+        <img
+          className="header__logo-img"
+          src={logo}
+          alt="Tony & Jacando Icon"
+        />
+        <span className="header__logo-text">Tony & Jacando</span>
+      </div>
+      {user && (
+        <div className="header__user">
+          <span className="header__user-name">{user.username}</span>
+          <span className="header__user-icon">
+            <Avatar
+              alt="User Icon"
+              style={{ backgroundColor: contrastRed.main }}
+              icon={<UserOutlined />}
+            />
+          </span>
+          <Badge className="header__cart" count={cart?.items.length ?? null}>
+            <span className="header__cart-icon">
               <CartIcon handleClick={handleCartIconClick} />
-            </Space>
-          </Col>
-        </Row>
-      </AntHeader>
-    </Layout>
+            </span>
+          </Badge>
+        </div>
+      )}
+    </header>
   );
 };
 

@@ -2,6 +2,7 @@ import { Avatar, List } from 'antd';
 import React from 'react';
 import { ICategory } from '../queries/categories.query';
 import { faker } from '@faker-js/faker';
+import './scss/Category.scss';
 
 interface CategoryProps {
   category: ICategory;
@@ -14,10 +15,11 @@ const Category: React.FC<CategoryProps> = ({
   selectedCategoryId,
   selectCategory,
 }) => (
-  <List.Item onClick={() => selectCategory(category.id)}>
-    {category.id === selectedCategoryId && <span>Selected</span>}
+  <List.Item
+    onClick={() => selectCategory(category.id)}
+    className={category.id === selectedCategoryId ? 'selected' : ''}>
     <List.Item.Meta
-      avatar={<Avatar src={faker.image.food(250, 250, true)} />}
+      avatar={<Avatar src={faker.image.abstract(250, 250, true)} />}
       title={category.name}
       description={category.description}
     />

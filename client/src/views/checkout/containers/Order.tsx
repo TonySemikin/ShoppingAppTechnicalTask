@@ -16,6 +16,7 @@ import { CREATE_ORDER } from '../mutations/create-order.mutation';
 import { PROCEED_TO_PAYMENT } from '../mutations/proceed-to-payment.mutation';
 import OrderSummary from '../components/OrderSummary';
 import PaymentMethod from '../components/PaymentMethod';
+import './Order.scss';
 
 interface OrderProps {
   items: IOrderItem[] | ICartItem[];
@@ -163,9 +164,11 @@ const Order: React.FC<OrderProps> = ({
   }, [orderStatus]);
 
   return (
-    <>
+    <div className="order">
       {messageContextHolder}
-      <Stepper stepsStatus={stepsState} onStepChange={onStepChange} />
+      <div className="order__stepper">
+        <Stepper stepsStatus={stepsState} onStepChange={onStepChange} />
+      </div>
       {stepsState.currentStep === 0 && (
         <OrderSummary
           items={items}
@@ -208,7 +211,7 @@ const Order: React.FC<OrderProps> = ({
           proceedToOrder={proceedToOrder}
         />
       )}
-    </>
+    </div>
   );
 };
 

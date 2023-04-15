@@ -157,7 +157,7 @@ export const ShoppingCartProvider: React.FC<ShoppingCartProviderProps> = ({
       }
 
       const updatedCart = await addItemToCartMutation({
-        variables: { cartIds: cart.id, input: { productId, quantity } },
+        variables: { cartId: cart.id, input: { productId, quantity } },
       });
 
       if (updatedCart.data) {
@@ -172,7 +172,7 @@ export const ShoppingCartProvider: React.FC<ShoppingCartProviderProps> = ({
       if (!cart) return;
 
       const updatedCart = await removeItemFromCartMutation({
-        variables: { cartIds: cart.id, productId },
+        variables: { cartId: cart.id, productId },
       });
 
       if (updatedCart.data) {

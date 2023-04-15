@@ -1,9 +1,10 @@
-import { useQuery } from '@apollo/client';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ICategory, GET_CATEGORIES } from '../queries/categories.query';
+import { useQuery } from '@apollo/client';
 import { Empty, List, Skeleton } from 'antd';
 import { useSearchParams } from 'react-router-dom';
+import { ICategory, GET_CATEGORIES } from '../queries/categories.query';
 import Category from '../components/Category';
+import './scss/CategoryList.scss';
 
 interface CategoryListProps {
   onCategorySelected: (categoryId: string) => void;
@@ -51,27 +52,38 @@ const CategoryList: React.FC<CategoryListProps> = ({ onCategorySelected }) => {
     }
   }, [data, searchParams, selectCategory, selectedCategory]);
 
-  if (loading) return <Skeleton active />;
-  if (error)
-    return (
-      <Empty
-        image={Empty.PRESENTED_IMAGE_SIMPLE}
-        description={'Error occurred'}
-      />
-    );
-
   return (
-    <List
-      itemLayout="horizontal"
-      dataSource={data?.categories}
-      renderItem={(category) => (
-        <Category
-          category={category}
-          selectCategory={selectCategory}
-          selectedCategoryId={selectedCategory}
-        />
+    <div className="category-list">
+      {loading && (
+        <div className="category-list__loading">
+          <Skeleton active />
+        </div>
       )}
-    />
+      {error && (
+        <div className="category-list__empty">
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description={'Error occurred'}
+          />
+        </div>
+      )}
+      {!loading && !error && (
+        <div className="category-list__content">
+          <List
+            itemLayout="horizontal"
+            className="category-list__content-list"
+            dataSource={data?.categories}
+            renderItem={(category) => (
+              <Category
+                category={category}
+                selectCategory={selectCategory}
+                selectedCategoryId={selectedCategory}
+              />
+            )}
+          />
+        </div>
+      )}
+    </div>
   );
 };
 

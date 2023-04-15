@@ -2,6 +2,8 @@ import { Avatar, List, Spin } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { ICartItem } from '../queries/cart.query';
 import { useEffect, useState } from 'react';
+import { faker } from '@faker-js/faker';
+import './scss/CartItem.scss';
 
 interface CartItemProps {
   index: number;
@@ -9,11 +11,7 @@ interface CartItemProps {
   onRemoveFromCart: () => void;
 }
 
-const CartItem: React.FC<CartItemProps> = ({
-  index,
-  cartItem,
-  onRemoveFromCart,
-}) => {
+const CartItem: React.FC<CartItemProps> = ({ cartItem, onRemoveFromCart }) => {
   //*** HOOKS ***//
 
   const [loadingRemoveFromCart, setLoadingRemoveFromCart] = useState(false);
@@ -34,25 +32,24 @@ const CartItem: React.FC<CartItemProps> = ({
   }, [cartItem, loadingRemoveFromCart]);
 
   return (
-    <>
-      <div>
-        {cartItem.productId}
+    <div className="cart-item">
+      <div className="cart-item__name">
         <List.Item.Meta
-          avatar={
-            <Avatar
-              src={`https://xsgames.co/randomusers/avatar.php?g=pixel&key=${index}`}
-            />
-          }
+          avatar={<Avatar src={faker.image.abstract(50, 50, true)} />}
           title={cartItem.productName}
         />
-        <span>{cartItem.quantity}</span>
       </div>
-      <span> Quantity: {cartItem.quantity}</span>
-      <span> Total: {cartItem.total}</span>
-      {loadingRemoveFromCart && <Spin />}
-
-      {cartItem && <DeleteOutlined onClick={handleRemoveFromCart} />}
-    </>
+      <div className="cart-item__info">
+        <span> Quantity: {cartItem.quantity}</span>
+        <span> Total: € {cartItem.total.toFixed(2)}</span>
+      </div>
+      <div className="cart-item__actions">
+        {cartItem && !loadingRemoveFromCart && (
+          <DeleteOutlined onClick={handleRemoveFromCart} />
+        )}
+        {loadingRemoveFromCart && <Spin />}
+      </div>
+    </div>
   );
 };
 

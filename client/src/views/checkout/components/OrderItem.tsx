@@ -1,6 +1,6 @@
-import { Avatar, List } from 'antd';
 import { faker } from '@faker-js/faker';
 import { IOrderItem } from '../queries/order.query';
+import './scss/OrderItem.scss';
 
 interface OrderItemProps {
   index: number;
@@ -9,18 +9,20 @@ interface OrderItemProps {
 
 const OrderItem: React.FC<OrderItemProps> = ({ index, item }) => {
   return (
-    <>
-      <div>
-        {item.productId}
-        <List.Item.Meta
-          avatar={<Avatar src={faker.image.food(250, 250, true)} />}
-          title={item.productName}
+    <div className="order-item">
+      <div className="order-item__info">
+        <img
+          className="order-item__info-image"
+          src={faker.image.abstract(100, 100, false)}
+          alt={item.productName}
         />
-        <span>{item.quantity}</span>
+        <span className="order-item__info-name">{item.productName}</span>
       </div>
-      <span> Quantity: {item.quantity}</span>
-      <span> Total: {item.total}</span>
-    </>
+      <div className="order-item__details">
+        <span>Quantity: {item.quantity}</span>
+        <span>Total: € {item.total.toFixed(2)}</span>
+      </div>
+    </div>
   );
 };
 

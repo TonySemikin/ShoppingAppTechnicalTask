@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Layout, Space } from 'antd';
 import CategoryList from './containers/CategoryList';
 import ProductList from './containers/ProductList';
-
-const { Sider, Content } = Layout;
+import './Shop.scss';
 
 const Shop: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -13,16 +11,14 @@ const Shop: React.FC = () => {
   };
 
   return (
-    <Space direction="vertical" style={{ width: '100%' }} size={[0, 48]}>
-      <Layout>
-        <Sider>
-          <CategoryList onCategorySelected={onCategorySelected} />
-        </Sider>
-        <Content>
-          <ProductList selectedCategory={selectedCategory} />
-        </Content>
-      </Layout>
-    </Space>
+    <div className="shop">
+      <aside className="shop__categories">
+        <CategoryList onCategorySelected={onCategorySelected} />
+      </aside>
+      <section className="shop__products">
+        <ProductList selectedCategory={selectedCategory} />
+      </section>
+    </div>
   );
 };
 

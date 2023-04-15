@@ -8,12 +8,12 @@
     "method": "POST",
     "sortNum": 20000,
     "created": "2023-04-12T07:11:27.190Z",
-    "modified": "2023-04-14T16:13:42.364Z",
+    "modified": "2023-04-15T10:16:32.452Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"Fruits yeeey\",\n  \"description\": \"Delicious fruits\"\n}",
+      "raw": "{\n  \"name\": \"Fruits yeeey 6\",\n  \"description\": \"Delicious fruits\"\n}",
       "form": []
     },
     "tests": [

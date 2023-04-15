@@ -43,37 +43,34 @@ const Stepper: React.FC<StepperProps> = ({ stepsStatus, onStepChange }) => {
       items={[
         {
           title: 'Your Order',
-          status: stepsStatus.steps[0].status,
-          icon:
-            currentStep === 0 && stepsStatus.steps[0].status === 'wait' ? (
-              <LoadingOutlined />
-            ) : (
-              <ShoppingCartOutlined />
-            ),
+          status:
+            stepsStatus.currentStep === 0
+              ? 'process'
+              : stepsStatus.steps[0].status,
+          icon: <ShoppingCartOutlined />,
         },
         {
           title: 'Delivery Address',
-          status: stepsStatus.steps[1].status,
-          icon:
-            currentStep === 1 && stepsStatus.steps[1].status === 'wait' ? (
-              <LoadingOutlined />
-            ) : (
-              <HomeOutlined />
-            ),
+          status:
+            stepsStatus.currentStep === 1
+              ? 'process'
+              : stepsStatus.steps[1].status,
+          icon: <HomeOutlined />,
         },
         {
           title: 'Payment Method',
-          status: stepsStatus.steps[2].status,
-          icon:
-            currentStep === 2 && stepsStatus.steps[2].status === 'wait' ? (
-              <LoadingOutlined />
-            ) : (
-              <DollarOutlined />
-            ),
+          status:
+            stepsStatus.currentStep === 2
+              ? 'process'
+              : stepsStatus.steps[2].status,
+          icon: <DollarOutlined />,
         },
         {
           title: 'Complete',
-          status: stepsStatus.steps[3].status,
+          status:
+            stepsStatus.currentStep === 3
+              ? 'process'
+              : stepsStatus.steps[3].status,
           icon:
             currentStep === 3 &&
             ['wait', 'process'].includes(

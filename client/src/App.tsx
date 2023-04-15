@@ -10,6 +10,7 @@ import Shop from './views/shop/Shop';
 import Checkout from './views/checkout/Checkout';
 import Orders from './views/checkout/Orders';
 import { ThemeProvider } from './common/contexts/ThemeContext';
+import './common/scss/app.scss';
 
 function App() {
   return (

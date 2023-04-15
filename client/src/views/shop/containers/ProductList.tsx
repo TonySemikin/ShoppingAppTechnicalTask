@@ -5,11 +5,12 @@ import {
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
-import { Empty, List, Pagination, Skeleton } from 'antd';
+import { Empty, Pagination, Skeleton } from 'antd';
 import { GET_PRODUCTS, IProduct } from '../queries/products.query';
 import Product from '../components/Product';
 import { useShoppingCart } from '../../cart/contexts/ShoppingCartContext';
 import { ICart } from '../../cart/queries/cart.query';
+import './scss/ProductList.scss';
 
 interface ProductListProps {
   selectedCategory: string;
@@ -115,49 +116,65 @@ const ProductList: React.FC<ProductListProps> = ({ selectedCategory }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
-  if (!selectedCategory || loading) return <Skeleton active />;
-  if (error)
-    return (
-      <Empty
-        image={Empty.PRESENTED_IMAGE_SIMPLE}
-        description={'Error occurred'}
-      />
-    );
-
   return (
-    <>
-      <List
-        itemLayout="horizontal"
-        dataSource={data?.productsByCategory.products}
-        renderItem={(product, index) => (
-          <List.Item>
-            <Product
-              product={product}
-              cartItem={findProductInCart(cart, product)}
-              key={product.id}
-              index={index}
-              onAddToCart={(quantity: number) =>
-                onAddToCart(product.id, quantity)
-              }
-              onRemoveFromCart={() => onRemoveFromCart(product.id)}
-              errorCreateCart={!!errorCreateCart}
-              errorAddItemToCart={!!errorAddItemToCart}
-              errorRemoveItemFromCart={!!errorRemoveItemFromCart}
-            />
-          </List.Item>
-        )}
-      />
-      {!loading && data?.productsByCategory.totalCount && (
-        <Pagination
-          showSizeChanger
-          onChange={onPaginationChange}
-          defaultCurrent={query.step}
-          defaultPageSize={query.size}
-          pageSizeOptions={PAGE_SIZE_OPTIONS}
-          total={data?.productsByCategory.totalCount ?? 0}
-        />
+    <div className="product-list">
+      {(!selectedCategory || loading) && (
+        <div className="product-list__loading">
+          <Skeleton active />
+        </div>
       )}
-    </>
+      {error && (
+        <div className="product-list__empty">
+          <Empty
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+            description={'Error occurred'}
+          />
+        </div>
+      )}
+      {!loading && !error && selectedCategory && (
+        <div className="product-list__content">
+          <div className="product-list__content-list">
+            {(!data?.productsByCategory.products ||
+              data?.productsByCategory.products.length === 0) && (
+              <div className="product-list__content-empty">
+                <Empty
+                  image={Empty.PRESENTED_IMAGE_SIMPLE}
+                  description={'No products found '}
+                />
+              </div>
+            )}
+            {data?.productsByCategory.products?.map((product, index) => (
+              <div className="product-list__content-list-item" key={product.id}>
+                <Product
+                  product={product}
+                  cartItem={findProductInCart(cart, product)}
+                  index={index}
+                  onAddToCart={(quantity: number) =>
+                    onAddToCart(product.id, quantity)
+                  }
+                  onRemoveFromCart={() => onRemoveFromCart(product.id)}
+                  errorCreateCart={!!errorCreateCart}
+                  errorAddItemToCart={!!errorAddItemToCart}
+                  errorRemoveItemFromCart={!!errorRemoveItemFromCart}
+                />
+              </div>
+            ))}
+          </div>
+          {!!data?.productsByCategory.totalCount && (
+            <div className="product-list__content-pagination">
+              <Pagination
+                showSizeChanger
+                onChange={onPaginationChange}
+                defaultCurrent={query.step}
+                defaultPageSize={query.size}
+                pageSizeOptions={PAGE_SIZE_OPTIONS}
+                total={data?.productsByCategory.totalCount ?? 0}
+              />
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 

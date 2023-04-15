@@ -1,9 +1,10 @@
 import { Avatar, Button, InputNumber, List, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
+import { faker } from '@faker-js/faker';
 import { IProduct } from '../queries/products.query';
 import { ICartItem } from '../../cart/queries/cart.query';
-import { faker } from '@faker-js/faker';
+import './scss/Product.scss';
 
 interface ProductProps {
   cartItem: ICartItem | null;
@@ -74,32 +75,50 @@ const Product: React.FC<ProductProps> = ({
   }, [errorCreateCart, errorAddItemToCart, errorRemoveItemFromCart]);
 
   return (
-    <>
-      <div>
-        {product.id}
-        <List.Item.Meta
-          avatar={<Avatar src={faker.image.food(250, 250, true)} />}
-          title={product.name}
-          description={product.description}
+    <div className="product">
+      <div className="product__info">
+        <img
+          className="product__info-image"
+          src={faker.image.abstract(200, 200, true)}
+          alt={product.name}
         />
-        <span>{product.price}</span>
+        <div className="product__info-details">
+          <div className="product__info-details-title">{product.name}</div>
+          <div className="product__info-details-description">
+            {product.description}
+          </div>
+          <div className="product__info-details-price">
+            <span className="product__info-details-price-currency">€</span>
+            {product.price.toFixed(2)}
+          </div>
+        </div>
       </div>
-      {loadingRemoveFromCart && <Spin />}
-      <InputNumber
-        disabled={!!cartItem}
-        min={1}
-        value={selectedQuantity}
-        onChange={handleQuantityChange}
-      />
-      <Button
-        disabled={!!cartItem}
-        loading={loadingAddToCart}
-        type="primary"
-        onClick={handleAddToCart}>
-        {cartItem ? 'Added To Cart' : 'Add To Cart'}
-      </Button>
-      {cartItem && <DeleteOutlined onClick={handleRemoveFromCart} />}
-    </>
+      <div className="product__actions">
+        <div className="product__actions-quantity">
+          <InputNumber
+            disabled={!!cartItem}
+            min={1}
+            value={selectedQuantity}
+            onChange={handleQuantityChange}
+          />
+        </div>
+        <div className="product__actions-add-to-cart">
+          <Button
+            disabled={!!cartItem}
+            loading={loadingAddToCart}
+            type="primary"
+            onClick={handleAddToCart}>
+            {cartItem ? 'Added To Cart' : 'Add To Cart'}
+          </Button>
+        </div>
+        <div className="product__actions-delete-from-cart">
+          {cartItem && !loadingRemoveFromCart && (
+            <DeleteOutlined onClick={handleRemoveFromCart} />
+          )}
+          {loadingRemoveFromCart && <Spin />}
+        </div>
+      </div>
+    </div>
   );
 };
 

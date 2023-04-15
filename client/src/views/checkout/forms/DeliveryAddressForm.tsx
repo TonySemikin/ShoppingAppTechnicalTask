@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
+import './DeliveryAddressForm.scss';
 
 interface UserFormProps {
   savedDeliveryAddress: { shortDescription: string } | undefined;
@@ -23,23 +24,25 @@ const DeliveryAddressForm: React.FC<UserFormProps> = ({
   };
 
   return (
-    <>
+    <div className="delivery-address-form">
       {savedDeliveryAddress ? (
-        <>
+        <div className="delivery-address-form__body">
           <h2>Your order will be delivered to:</h2>
           <p>{savedDeliveryAddress.shortDescription}</p>
-        </>
+        </div>
       ) : (
-        <>
+        <div className="delivery-address-form__body">
           <Form
             name="basic"
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
+            className="delivery-address-form__body-input"
             onChange={handleChange}
+            disabled={!isActionsShown}
+            initialValues={{ address: inputDeliveryAddress }}
             autoComplete="off">
             <Form.Item
-              label="Delivery Address"
+              label={
+                <span style={{ fontWeight: 'bold' }}>Delivery Address</span>
+              }
               name="address"
               rules={[
                 {
@@ -51,19 +54,21 @@ const DeliveryAddressForm: React.FC<UserFormProps> = ({
               <Input />
             </Form.Item>
           </Form>
-          {isActionsShown && (
-            <Button
-              disabled={!inputDeliveryAddress}
-              loading={createOrderLoading}
-              type="primary"
-              htmlType="submit"
-              onClick={proceed}>
-              Select payment method
-            </Button>
-          )}
-        </>
+        </div>
       )}
-    </>
+      <div className="delivery-address-form__footer">
+        {isActionsShown && (
+          <Button
+            disabled={!inputDeliveryAddress}
+            loading={createOrderLoading}
+            type="primary"
+            htmlType="submit"
+            onClick={proceed}>
+            Select payment method
+          </Button>
+        )}
+      </div>
+    </div>
   );
 };
 

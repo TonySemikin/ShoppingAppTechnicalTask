@@ -11,17 +11,15 @@ const CartModal: React.FC = () => {
   };
 
   return (
-    <>
-      <Modal
-        title="Cart"
-        open={modals?.isCartModalOpen ?? false}
-        footer={null}
-        centered={true}
-        closable={true}
-        onCancel={closeModal}>
-        <Cart onSubmitted={closeModal} />
-      </Modal>
-    </>
+    <Modal
+      title="Cart"
+      open={modals?.isCartModalOpen ?? false}
+      footer={null}
+      centered={true}
+      closable={true}
+      onCancel={closeModal}>
+      <Cart onSubmitted={closeModal} />
+    </Modal>
   );
 };
 

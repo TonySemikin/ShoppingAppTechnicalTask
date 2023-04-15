@@ -21,6 +21,22 @@ const theme = {
     contrastTextMain: 'var(--secondary-contrast-text-main)',
     contrastTextDark: 'var(--secondary-contrast-text-dark)',
   },
+  contrastRed: {
+    light: 'var(--contrast-red-light)',
+    main: 'var(--contrast-red-main)',
+    dark: 'var(--contrast-red-dark)',
+    contrastTextLight: 'var(--contrast-red-contrast-text-light)',
+    contrastTextMain: 'var(--contrast-red-contrast-text-main)',
+    contrastTextDark: 'var(--contrast-red-contrast-text-dark)',
+  },
+  grey: {
+    light: 'var(--grey-light)',
+    main: 'var(--grey-main)',
+    dark: 'var(--grey-dark)',
+    contrastTextLight: 'var(--grey-contrast-text-light)',
+    contrastTextMain: 'var(--grey-contrast-text-main)',
+    contrastTextDark: 'var(--grey-contrast-text-dark)',
+  },
 };
 
 const ThemeContext = createContext(theme);
@@ -31,4 +47,4 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   );
 };
 
-export const useModals = () => useContext(ThemeContext);
+export const useTheme = () => useContext(ThemeContext);
