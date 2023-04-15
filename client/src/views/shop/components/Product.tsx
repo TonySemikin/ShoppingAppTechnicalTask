@@ -1,7 +1,6 @@
-import { Avatar, Button, InputNumber, List, Spin } from 'antd';
+import { Button, InputNumber, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { DeleteOutlined } from '@ant-design/icons';
-import { faker } from '@faker-js/faker';
 import { IProduct } from '../queries/products.query';
 import { ICartItem } from '../../cart/queries/cart.query';
 import './scss/Product.scss';
@@ -25,6 +24,7 @@ const Product: React.FC<ProductProps> = ({
   errorCreateCart,
   errorAddItemToCart,
   errorRemoveItemFromCart,
+  index,
 }) => {
   //*** LOCAL STATE ***//
 
@@ -78,8 +78,7 @@ const Product: React.FC<ProductProps> = ({
     <div className="product">
       <div className="product__info">
         <img
-          className="product__info-image"
-          src={faker.image.abstract(200, 200, true)}
+          src={`https://loremflickr.com/200/200/abstract?lock=${94862 + index}`}
           alt={product.name}
         />
         <div className="product__info-details">

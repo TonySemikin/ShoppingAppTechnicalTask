@@ -4,7 +4,7 @@ import './scss/Footer.scss';
 const Footer: React.FC = () => {
   return (
     <section className="footer">
-      <p className="footer__copyright">Copyright Anton Semikin (c)</p>
+      <p className="footer__copyright">Copyright by Anton Semikin © 2023</p>
     </section>
   );
 };

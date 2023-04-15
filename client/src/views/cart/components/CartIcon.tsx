@@ -8,7 +8,7 @@ interface CartIconProps {
 const CartIcon: React.FC<CartIconProps> = ({ handleClick }) => (
   <ShoppingCartOutlined
     onClick={handleClick}
-    style={{ fontSize: 26, marginRight: 20 }}
+    style={{ fontSize: 28, marginRight: 20 }}
   />
 );
 

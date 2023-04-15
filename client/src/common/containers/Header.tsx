@@ -52,7 +52,10 @@ const Header: React.FC = () => {
               icon={<UserOutlined />}
             />
           </span>
-          <Badge className="header__cart" count={cart?.items.length ?? null}>
+          <Badge
+            size="small"
+            className="header__cart"
+            count={cart?.items.length ?? null}>
             <span className="header__cart-icon">
               <CartIcon handleClick={handleCartIconClick} />
             </span>

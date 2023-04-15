@@ -27,7 +27,7 @@ const DeliveryAddressForm: React.FC<UserFormProps> = ({
     <div className="delivery-address-form">
       {savedDeliveryAddress ? (
         <div className="delivery-address-form__body">
-          <h2>Your order will be delivered to:</h2>
+          <h3>Your order will be delivered to:</h3>
           <p>{savedDeliveryAddress.shortDescription}</p>
         </div>
       ) : (

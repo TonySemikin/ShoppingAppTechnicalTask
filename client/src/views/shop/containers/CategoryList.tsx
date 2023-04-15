@@ -73,8 +73,9 @@ const CategoryList: React.FC<CategoryListProps> = ({ onCategorySelected }) => {
             itemLayout="horizontal"
             className="category-list__content-list"
             dataSource={data?.categories}
-            renderItem={(category) => (
+            renderItem={(category, index) => (
               <Category
+                index={index}
                 category={category}
                 selectCategory={selectCategory}
                 selectedCategoryId={selectedCategory}

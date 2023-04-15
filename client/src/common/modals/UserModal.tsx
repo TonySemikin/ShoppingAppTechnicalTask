@@ -11,16 +11,14 @@ const UserModal: React.FC = () => {
   };
 
   return (
-    <>
-      <Modal
-        title="Sign Up"
-        open={modals?.isUserModalOpen}
-        footer={null}
-        centered={true}
-        closable={false}>
-        <UserForm onSubmitted={closeModal} />
-      </Modal>
-    </>
+    <Modal
+      title="Sign Up"
+      open={modals?.isUserModalOpen}
+      footer={null}
+      centered={true}
+      closable={false}>
+      <UserForm onSubmitted={closeModal} />
+    </Modal>
   );
 };
 

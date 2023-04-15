@@ -1,25 +1,32 @@
 import { Avatar, List } from 'antd';
 import React from 'react';
 import { ICategory } from '../queries/categories.query';
-import { faker } from '@faker-js/faker';
 import './scss/Category.scss';
 
 interface CategoryProps {
   category: ICategory;
   selectedCategoryId: string;
   selectCategory: (id: string) => void;
+  index: number;
 }
 
 const Category: React.FC<CategoryProps> = ({
   category,
   selectedCategoryId,
   selectCategory,
+  index,
 }) => (
   <List.Item
     onClick={() => selectCategory(category.id)}
-    className={category.id === selectedCategoryId ? 'selected' : ''}>
+    className={`category ${
+      category.id === selectedCategoryId ? 'selected' : ''
+    }`}>
     <List.Item.Meta
-      avatar={<Avatar src={faker.image.abstract(250, 250, true)} />}
+      avatar={
+        <Avatar
+          src={`https://loremflickr.com/200/200/abstract?lock=${index}`}
+        />
+      }
       title={category.name}
       description={category.description}
     />

@@ -82,11 +82,11 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmitted }) => {
         <Form.Item
           name="remember"
           valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}>
+          wrapperCol={{ offset: 6, span: 16 }}>
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
           <Button loading={loading} type="primary" htmlType="submit">
             Sign Up
           </Button>
