@@ -34,6 +34,7 @@ const Cart: React.FC<CartProps> = ({ onSubmitted }) => {
         locale={{
           emptyText: (
             <Empty
+              imageStyle={{ marginTop: '13vh' }}
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               description={'Cart is empty'}
             />

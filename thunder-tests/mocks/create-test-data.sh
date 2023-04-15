@@ -58,9 +58,10 @@ createProducts() {
     itemName=$(echo "$item" | jq -r '.name')
     itemDescription=$(echo "$item" | jq -r '.description')
     itemPrice=$(echo "$item" | jq -r '.price')
+    itemStock=$(echo "$item" | jq -r '.stock')
 
     # Prepare JSON payload for the POST request
-    jsonPayload=$(jq -n --arg name "$itemName" --arg description "$itemDescription" --arg categoryId "$categoryId" --argjson price "$itemPrice" '{name: $name, description: $description, price: $price, categoriesIds: [$categoryId]}')
+    jsonPayload=$(jq -n --arg name "$itemName" --arg description "$itemDescription" --arg categoryId "$categoryId" --argjson price "$itemPrice" --argjson stock "$itemStock" '{name: $name, description: $description, price: $price, stock: $stock, categoriesIds: [$categoryId]}')
 
     # Make the POST request and store the response
     response=$(curl -s -X POST -H "Content-Type: application/json" -d "$jsonPayload" "http://localhost/api/v1/ims/products")
@@ -70,6 +71,7 @@ createProducts() {
     echo "Product created with ID: $id"
   done
 }
+
 
 
 command="$1"

@@ -1,4 +1,4 @@
-import { Field, Float, ObjectType } from '@nestjs/graphql';
+import { Field, Float, Int, ObjectType } from '@nestjs/graphql';
 import { CategorySchema } from './category.schema';
 
 @ObjectType()
@@ -17,4 +17,7 @@ export class ProductSchema {
 
   @Field((type) => Float)
   price: number;
+
+  @Field((type) => Int)
+  stock: number;
 }

@@ -7,13 +7,22 @@ export class ProductMongoDocument extends EntityMongoDocument {
   readonly description: string;
   readonly categoriesIds: string[];
   readonly price: number;
+  readonly stock: number;
   readonly [key: string]: any;
 
   //*** SERIALIZATION / DESERIALIZATION ***//
 
   static serialize(entity: Product): ProductMongoDocument {
-    const { id, created, updated, name, description, categoriesIds, price } =
-      entity;
+    const {
+      id,
+      created,
+      updated,
+      name,
+      description,
+      categoriesIds,
+      price,
+      stock,
+    } = entity;
 
     const document = {
       _id: new ObjectId(id),
@@ -23,6 +32,7 @@ export class ProductMongoDocument extends EntityMongoDocument {
       description,
       categoriesIds,
       price,
+      stock,
     };
 
     if (!entity.id) delete document._id;
@@ -31,8 +41,16 @@ export class ProductMongoDocument extends EntityMongoDocument {
   }
 
   static deserialize(document: ProductMongoDocument): Product {
-    const { _id, created, updated, name, description, categoriesIds, price } =
-      document;
+    const {
+      _id,
+      created,
+      updated,
+      name,
+      description,
+      categoriesIds,
+      price,
+      stock,
+    } = document;
 
     return new Product(
       _id.toHexString(),
@@ -42,6 +60,7 @@ export class ProductMongoDocument extends EntityMongoDocument {
       description,
       categoriesIds,
       price,
+      stock,
     );
   }
 

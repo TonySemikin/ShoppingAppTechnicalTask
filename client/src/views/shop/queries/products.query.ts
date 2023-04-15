@@ -5,6 +5,7 @@ export interface IProduct {
   name: string;
   description: string;
   price: number;
+  stock: number;
 }
 
 export const GET_PRODUCTS = gql`
@@ -15,6 +16,7 @@ export const GET_PRODUCTS = gql`
         name
         description
         price
+        stock
       }
       totalCount
     }

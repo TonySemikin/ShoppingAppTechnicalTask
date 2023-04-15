@@ -94,10 +94,14 @@ const Product: React.FC<ProductProps> = ({
         </div>
       </div>
       <div className="product__actions">
+        <div className="product__actions-stock-limit">
+          {product.stock < 10 && <p>Only {product.stock} items left</p>}
+        </div>
         <div className="product__actions-quantity">
           <InputNumber
             disabled={!!cartItem}
             min={1}
+            max={product.stock}
             value={selectedQuantity}
             onChange={handleQuantityChange}
           />

@@ -6,6 +6,7 @@ export class Product extends Entity {
   #description: string;
   #categoriesIds: string[];
   #price: number;
+  #stock: number;
 
   constructor(
     id: string,
@@ -15,6 +16,7 @@ export class Product extends Entity {
     description: string,
     categoriesIds: string[],
     price: number,
+    stock: number,
   ) {
     super(id, created, updated);
 
@@ -22,6 +24,7 @@ export class Product extends Entity {
     this.#description = description;
     this.#categoriesIds = categoriesIds;
     this.#price = price;
+    this.#stock = stock;
   }
 
   //*** PUBLIC API ***//
@@ -77,5 +80,9 @@ export class Product extends Entity {
 
   get price(): number {
     return this.#price;
+  }
+
+  get stock(): number {
+    return this.#stock;
   }
 }
