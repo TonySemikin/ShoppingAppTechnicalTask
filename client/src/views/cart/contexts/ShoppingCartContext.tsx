@@ -16,6 +16,7 @@ import { CREATE_CART } from '../mutations/create-cart.mutation';
 import { useSession } from '../../../common/contexts/SessionContext';
 import { ADD_ITEM_TO_CART } from '../mutations/add-item-to-cart.mutation';
 import { REMOVE_ITEM_FROM_CART } from '../mutations/remove-item-from-cart.mutation';
+import { SET_ITEM_QUANTITY } from '../mutations/set-item-quantity.mutation';
 
 interface ShoppingCartContextData {
   cart: ICart | null;
@@ -24,6 +25,7 @@ interface ShoppingCartContextData {
   errorRemoveItemFromCart: ApolloError | undefined;
   addToCart: (productId: string, quantity: number) => Promise<void>;
   removeFromCart: (productId: string) => Promise<void>;
+  setItemQuantity: (productId: string, quantity: number) => Promise<void>;
   clearCart: () => Promise<void>;
 }
 
@@ -66,6 +68,9 @@ export const ShoppingCartProvider: React.FC<ShoppingCartProviderProps> = ({
   const [removeItemFromCartMutation, { error: errorRemoveItemFromCart }] =
     useMutation<{ removeItemFromCart: ICart }>(REMOVE_ITEM_FROM_CART);
 
+  const [setItemQuantityMutation, { error: errorSetItemQuantity }] =
+    useMutation<{ setItemQuantity: ICart }>(SET_ITEM_QUANTITY);
+
   //*** HANDLERS ***//
 
   const handleSetCart = useCallback((cart: ICart | null) => {
@@ -101,6 +106,14 @@ export const ShoppingCartProvider: React.FC<ShoppingCartProviderProps> = ({
       });
     }
 
+    if (errorSetItemQuantity) {
+      messageApi.open({
+        type: 'error',
+        content:
+          'Could not change item quantity in the cart, please try again in a few minutes or contact support.',
+      });
+    }
+
     if (errorRemoveItemFromCart) {
       messageApi.open({
         type: 'error',
@@ -112,6 +125,7 @@ export const ShoppingCartProvider: React.FC<ShoppingCartProviderProps> = ({
     errorCreateCart,
     errorAddItemToCart,
     errorRemoveItemFromCart,
+    errorSetItemQuantity,
     messageApi,
   ]);
 
@@ -182,6 +196,21 @@ export const ShoppingCartProvider: React.FC<ShoppingCartProviderProps> = ({
     [cart, handleSetCart, removeItemFromCartMutation],
   );
 
+  const setItemQuantity = useCallback(
+    async (productId: string, quantity: number) => {
+      if (!cart) return;
+
+      const updatedCart = await setItemQuantityMutation({
+        variables: { cartId: cart.id, productId, quantity },
+      });
+
+      if (updatedCart.data) {
+        handleSetCart(updatedCart.data.setItemQuantity);
+      }
+    },
+    [cart, handleSetCart, setItemQuantityMutation],
+  );
+
   const clearCart = useCallback(async () => {
     handleSetCart(null);
   }, [handleSetCart]);
@@ -194,6 +223,7 @@ export const ShoppingCartProvider: React.FC<ShoppingCartProviderProps> = ({
       errorRemoveItemFromCart,
       addToCart,
       removeFromCart,
+      setItemQuantity,
       clearCart,
     }),
     [
@@ -204,6 +234,7 @@ export const ShoppingCartProvider: React.FC<ShoppingCartProviderProps> = ({
       errorRemoveItemFromCart,
       clearCart,
       removeFromCart,
+      setItemQuantity,
     ],
   );
 

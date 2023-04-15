@@ -1,5 +1,5 @@
-import { Button, Empty, List } from 'antd';
 import React from 'react';
+import { Button, Empty, List } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useShoppingCart } from './contexts/ShoppingCartContext';
 import CartItem from './components/CartItem';
@@ -11,13 +11,17 @@ interface CartProps {
 
 const Cart: React.FC<CartProps> = ({ onSubmitted }) => {
   //*** HOOKS ***//
-  const { cart, removeFromCart } = useShoppingCart();
+  const { cart, removeFromCart, setItemQuantity } = useShoppingCart();
   const navigate = useNavigate();
 
   //*** HANDLERS ***//
 
   const handleRemoveFromCart = (productId: string) => {
     removeFromCart(productId);
+  };
+
+  const handleSetItemQuantity = (productId: string, quantity: number) => {
+    setItemQuantity(productId, quantity);
   };
 
   const handleProceedToCheckout = async () => {
@@ -47,6 +51,9 @@ const Cart: React.FC<CartProps> = ({ onSubmitted }) => {
               key={cartItem.productId}
               index={index}
               onRemoveFromCart={() => handleRemoveFromCart(cartItem.productId)}
+              onChangeItemQuantity={(quantity: number) =>
+                handleSetItemQuantity(cartItem.productId, quantity)
+              }
             />
           </List.Item>
         )}

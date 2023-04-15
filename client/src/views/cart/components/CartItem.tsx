@@ -8,6 +8,7 @@ interface CartItemProps {
   index: number;
   cartItem: ICartItem;
   onRemoveFromCart: () => void;
+  onChangeItemQuantity: (quantity: number) => void;
 }
 
 const CartItem: React.FC<CartItemProps> = ({
