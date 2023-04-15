@@ -111,7 +111,7 @@ const ProductList: React.FC<ProductListProps> = ({ selectedCategory }) => {
         }).toString(),
       });
 
-      onPaginationChange(start, query.size);
+      onPaginationChange(start, size);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
