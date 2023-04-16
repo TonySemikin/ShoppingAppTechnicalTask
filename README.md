@@ -32,9 +32,7 @@
 
 ### 1.1 About <a name="about"></a>
 
-This demo webshop application has been developed for Jacando as a technical task, showcasing my skills as a full-stack engineer. The project is designed to demonstrate proficiency in various technologies and design patterns, highlighting my ability to deliver quality software solutions. If you want to jump right into the local setup, follow the [instructions in this link](#local-setup).
-
-This application is a brief description of your application. If you want to jump right into local setup, follow [this link](#local-setup).
+This demo webshop application has been developed for Jacando as a technical task, showcasing my skills as a full-stack Software Engineer. The project is designed to demonstrate proficiency in various technologies and design patterns, highlighting my ability to deliver quality software solutions. If you want to jump right into the local setup, follow the [instructions in this link](#local-setup).
 
 ### 1.2 Architectural Design Overview <a name="architectural-design-overview"></a>
 
