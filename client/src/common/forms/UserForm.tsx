@@ -58,6 +58,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmitted }) => {
     <>
       {contextHolder}
       <Form
+        data-testid="user-form"
         name="basic"
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 16 }}
@@ -69,14 +70,14 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmitted }) => {
           label="Username"
           name="username"
           rules={[{ required: true, message: 'Please input your username!' }]}>
-          <Input />
+          <Input data-testid="username-input" />
         </Form.Item>
 
         <Form.Item
           label="Password"
           name="password"
           rules={[{ required: true, message: 'Please input your password!' }]}>
-          <Input.Password />
+          <Input.Password data-testid="password-input" />
         </Form.Item>
 
         <Form.Item
@@ -87,7 +88,11 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmitted }) => {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
-          <Button loading={loading} type="primary" htmlType="submit">
+          <Button
+            data-testid="sign-up-button"
+            loading={loading}
+            type="primary"
+            htmlType="submit">
             Sign Up
           </Button>
         </Form.Item>

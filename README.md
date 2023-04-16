@@ -151,6 +151,12 @@ If you don't want to use the script, you can still create test data using thunde
 
 ### 6.2 Unit Tests <a name="unit-tests"></a>
 
+In this project, an example of unit tests was implemented for the `Product` entity in the Shopping subdomain. To run unit tests, navigate to the server directory and run `npm run test`. Note that this is just for demonstration purposes and is not intended to provide complete test coverage.
+
 ### 6.3 API Tests <a name="api-tests"></a>
 
+A Thunder Collection was created for this project to run REST API tests, covering all inventory management endpoints. To try out these tests, you can install the Thunder Client extension in VS Code. Console options are also available, if needed. Similar tests could be done for the GraphQL API.
+
 ### 6.4 E2E Tests <a name="e2e-tests"></a>
+
+A very simple example of end-to-end (E2E) test was implemented in this project, although I am not an expert in this area and had to ask for some help from my wife to move forward quickly. To run the E2E tests, navigate to the `client` directory and run `npm run e2e` to see the test running in the browser, or `npm run e2e:silent` for console output only.
