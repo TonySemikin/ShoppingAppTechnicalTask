@@ -22,31 +22,4 @@ export abstract class Entity {
   get updated(): Date {
     return this.#updated;
   }
-
-  public serialize(): Record<string, unknown> {
-    const result: Record<string, unknown> = {};
-
-    let currentPrototype = Object.getPrototypeOf(this);
-    while (currentPrototype !== Object.prototype) {
-      Object.getOwnPropertyNames(currentPrototype).forEach((prop) => {
-        const descriptor = Object.getOwnPropertyDescriptor(
-          currentPrototype,
-          prop,
-        );
-
-        if (descriptor && descriptor.get) {
-          const value = (descriptor.get as () => unknown).call(this);
-
-          // Exclude null or undefined values from the serialized object
-          if (value !== null && value !== undefined) {
-            result[prop] = value;
-          }
-        }
-      });
-
-      currentPrototype = Object.getPrototypeOf(currentPrototype);
-    }
-
-    return result;
-  }
 }
